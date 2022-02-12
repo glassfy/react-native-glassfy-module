@@ -1,5 +1,3 @@
-import { NativeModules, Platform } from 'react-native';
-
 export enum GLASSFY_ELEGGIBILITY {
   ELEGIBLE = 1,
   NON_ELEGIBLE = -1,
@@ -9,8 +7,9 @@ export enum GLASSFY_ELEGGIBILITY {
 export enum GLASSFY_LOGFLAG {
   FLAGERROR = 1 << 0,
   FLAGDEBUG = 1 << 1,
-  FLAGINFO = 1 << 2,
+  FLAGINFO = 1 << 2
 }
+
 
 export enum GLASSFY_LOGLEVEL {
   LOGLEVELOFF = 0,
@@ -18,6 +17,7 @@ export enum GLASSFY_LOGLEVEL {
   LOGLEVELDEBUG = LOGLEVELERROR | GLASSFY_LOGFLAG.FLAGDEBUG,
   LOGLEVELINFO = LOGLEVELDEBUG | GLASSFY_LOGFLAG.FLAGINFO,
 }
+
 
 export enum GLASSFY_ENTITLEMENT {
   NEVERBUY = -9,
@@ -50,7 +50,9 @@ export enum GLASSFY_ENTITLEMENT {
   AUTORENEWOFF = 4,
   // The subscription is active and auto-renew is on.
   AUTORENEWON = 5,
+
 }
+
 
 export interface GlassfySku {
   readonly identifier: string;
@@ -73,77 +75,15 @@ export interface GlassfyPermission {
   readonly entitlement: GLASSFY_ENTITLEMENT;
   readonly isValid: boolean;
   readonly expireDate: string;
-  readonly accountableSkus: [string];
+  readonly accountableSkus: [string]
+
 }
 
 export interface GlassfyPermissions {
-  readonly installationId: string;
-  readonly subscriberId: string;
-  readonly originalApplicationVersion: string;
-  readonly originalApplicationDate: string;
+  readonly installationId: string,
+  readonly subscriberId: string,
+  readonly originalApplicationVersion: string,
+  readonly originalApplicationDate: string,
   readonly all: [GlassfyPermission];
 }
 
-const LINKING_ERROR =
-  `The package 'react-native-glassfy-module' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo managed workflow\n';
-
-const GlassfyModule = NativeModules.GlassfyModule
-  ? NativeModules.GlassfyModule
-  : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
-
-export function multiply(a: number, b: number): Promise<number> {
-  return GlassfyModule.multiply(a, b);
-}
-
-export interface GlassfyVersion {
-  readonly version: string;
-}
-
-export class Glassfy {
-  public static async sdkVersion(): Promise<GlassfyVersion> {
-    return GlassfyModule.sdkVersion();
-  }
-  public static async initialize(
-    apiKey: string,
-    watcherMode: boolean
-  ): Promise<void> {
-    return GlassfyModule.initializeWithApiKey(apiKey, watcherMode);
-  }
-  public static async offerings(): Promise<GlassfyOfferings> {
-    return GlassfyModule.offerings();
-  }
-
-  public static async skuWithIdentifier(
-    skuIdentifier: string
-  ): Promise<GlassfySku> {
-    return GlassfyModule.skuWithIdentifier(skuIdentifier);
-  }
-
-  public static async login(userid: string): Promise<void> {
-    return GlassfyModule.login(userid);
-  }
-
-  public static async logout(): Promise<void> {
-    return GlassfyModule.logout();
-  }
-
-  public static async purchaseSku(sku: GlassfySku): Promise<GlassfySku> {
-    return GlassfyModule.purchaseSku(sku);
-  }
-
-  public static async restorePurchases(): Promise<GlassfySku> {
-    return GlassfyModule.restorePurchases();
-  }
-}
-
-export * from './definitions';

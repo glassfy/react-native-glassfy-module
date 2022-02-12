@@ -137,7 +137,6 @@
 				47F7ED3B7971BE374F7B8635 /* Pods-GlassfyModuleExample.debug.xcconfig */,
 				E00ACF0FDA8BF921659E2F9A /* Pods-GlassfyModuleExample.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -550,7 +549,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.reactnativeglassfymodule;
+				PRODUCT_BUNDLE_IDENTIFIER = co.briseide.testapp;
 				PRODUCT_NAME = GlassfyModuleExample;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -572,7 +571,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.reactnativeglassfymodule;
+				PRODUCT_BUNDLE_IDENTIFIER = co.briseide.testapp;
 				PRODUCT_NAME = GlassfyModuleExample;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
