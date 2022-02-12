@@ -20,3 +20,13 @@ const GlassfyModule = NativeModules.GlassfyModule
 export function multiply(a: number, b: number): Promise<number> {
   return GlassfyModule.multiply(a, b);
 }
+
+export interface GlassfyVersion {
+  readonly version: string;
+}
+
+export class Glassfy {
+  public async sdkVersion(): Promise<GlassfyVersion> {
+    return GlassfyModule.sdkVersion();
+  }
+}
