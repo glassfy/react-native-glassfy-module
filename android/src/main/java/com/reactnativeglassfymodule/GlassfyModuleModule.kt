@@ -5,20 +5,25 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.Promise
 
+import org.json.JSONException
+import org.json.JSONObject
+
+
 class GlassfyModuleModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
     override fun getName(): String {
         return "GlassfyModule"
     }
 
-    // Example method
-    // See https://reactnative.dev/docs/native-modules-android
     @ReactMethod
-    fun multiply(a: Int, b: Int, promise: Promise) {
+    fun sdkVersion(promise: Promise) {
+      promise.resolve("""{"version":"1.1.7 - android not supported"}""")
+    }
     
-      promise.resolve(a * b)
-    
+    @ReactMethod
+    fun initializeWithApiKey(apiKey: String, watcherMode: Boolean,promise: Promise) {
+      promise.reject("Android platform not supported","Android platform not supported")
     }
 
-    
+
 }

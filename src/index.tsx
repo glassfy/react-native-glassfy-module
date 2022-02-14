@@ -145,5 +145,3 @@ export class Glassfy {
     return GlassfyModule.restorePurchases();
   }
 }
-
-export * from './definitions';
