@@ -1,27 +1,21 @@
-# react-native-glassfy-module
+<p align="">
+  <img src="https://glassfy.io/assets/images/glassfy-logo.svg" height="50"/>
+</p>
 
-glassfy module
 
-## Installation
+### Glassfy React Native SDK
 
+Is the client for Glassfy: a subscription revenue optimisation infrastructure for mobile applications.
+
+### Installation
 ```sh
 npm install react-native-glassfy-module
 ```
 
-## Usage
+### More Info
 
-```js
-import { multiply } from "react-native-glassfy-module";
+Check the documentation at [docs.glassfy.io](https://docs.glassfy.io/get-started/quick-start) to learn details on implementing and using Glassfy SDK.
 
-// ...
+### License
 
-const result = await multiply(3, 7);
-```
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
-## License
-
-MIT
+This SDK is available under the MIT license.
