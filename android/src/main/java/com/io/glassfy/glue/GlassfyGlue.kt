@@ -1,7 +1,7 @@
 package io.glassfy.glue
 
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import io.glassfy.androidsdk.Glassfy
 import io.glassfy.androidsdk.GlassfyError
 import io.glassfy.androidsdk.model.Sku
@@ -66,24 +66,29 @@ object GlassfyGlue {
     }
   }
 
-  fun purchaseSku(activity: AppCompatActivity, purchaseSku: Sku, callback: GlueCallback) {
-    Glassfy.sku(purchaseSku.skuId) { sku, skuerr ->
-      if (skuerr != null) {
-        callback(null, skuerr.toString())
-        return@sku
-      } else if (sku == null) {
-        callback(null, "InternalError")
-        return@sku
-      }
-      Glassfy.purchase(activity, sku, null) { transaction, err ->
-        if (err != null) {
-          callback(null, err.toString())
-          return@purchase
-        }
-        callback(transaction?.encodedJson().toString(), null)
-      }
-    }
+  fun purchaseSku(activity: Activity, skuId: String, callback: GlueCallback) {
+     Glassfy.sku(skuId) { sku, skuerr ->
+       if (skuerr != null) {
+         callback(null, skuerr.toString())
+         return@sku
+       } else if (sku == null) {
+         callback(null, "InternalError")
+         return@sku
+       }
+       Glassfy.purchase(activity, sku, null) { transaction, err ->
+         if (err != null) {
+           callback(null, err.toString())
+           return@purchase
+         }
+         callback(transaction?.encodedJson().toString(), null)
+       }
+     }
   }
+
+
+   fun purchaseSku(activity: Activity, purchaseSku: Sku, callback: GlueCallback) {
+     return purchaseSku(activity,purchaseSku.skuId,callback)
+   }
 
   fun restorePurchases(callback: GlueCallback) {
     Glassfy.restore() { permissions, err ->
@@ -100,9 +105,3 @@ object GlassfyGlue {
   }
 }
 
-//class Encoding {
-//    fun Sku.pippo(): String {
-//        JSONObject().pu
-//        return "aaa"
-//    }
-//}

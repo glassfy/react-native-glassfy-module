@@ -1,10 +1,14 @@
 package com.reactnativeglassfymodule
 
+import android.util.Log
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.Promise
-import io.glassfy.glue.GlassfyGlue
+import io.glassfy.glue.*
+import org.jetbrains.annotations.NotNull
+import org.json.JSONObject
+import java.lang.Exception
 
 
 class GlassfyModuleModule(reactContext: ReactApplicationContext) :
@@ -46,23 +50,29 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
     GlassfyGlue.permissions { value, error -> pluginCompletion(promise, value, error) }
   }
 
-
-@ReactMethod  fun login(promise: Promise) {
+  @ReactMethod
+  fun login(promise: Promise) {
     promise.resolve(null)
   }
 
-@ReactMethod  fun logout(promise: Promise) {
+  @ReactMethod
+  fun logout(promise: Promise) {
     promise.resolve(null)
   }
 
+  @ReactMethod
+  fun skuWithIdentifier(identifier:String,promise: Promise) {
+    GlassfyGlue.skuWithIdentifier(identifier) { value, error -> pluginCompletion(promise, value, error) }
+  }
 
-//@ReactMethod  fun purchaseSku(sku:Spromise: Promise) {
-//    val skujson = promise.getObject("sku")
-//    val jo = JSONObject(skujson.toString())
-//    val sku = skuFromJsonObject(jo)
-//
-//    GlassfyGlue.purchaseSku(activity,sku){ value, error -> pluginCompletion(promise, value, error) }
-//  }
+
+  @ReactMethod
+  fun purchaseSku(skid: String, promise: Promise) {
+    val activity = this.reactApplicationContext.currentActivity
+    if (activity!=null) {
+      GlassfyGlue.purchaseSku(activity,skid) { value, error -> pluginCompletion(promise, value, error) }
+    }
+  }
 
 @ReactMethod  fun restorePurchases(promise: Promise) {
     GlassfyGlue.restorePurchases()  { value, error -> pluginCompletion(promise, value, error) }

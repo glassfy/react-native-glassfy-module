@@ -53,7 +53,7 @@ export enum GLASSFY_ENTITLEMENT {
 }
 
 export interface GlassfySku {
-  readonly identifier: string;
+  readonly skuId: string;
   readonly productId: string;
   readonly introductoryEligibility: GLASSFY_ELEGGIBILITY;
   readonly promotionalEligibility: GLASSFY_ELEGGIBILITY;
@@ -124,9 +124,13 @@ export class Glassfy {
   }
 
   public static async skuWithIdentifier(
-    skuIdentifier: string
+    identifier: string
   ): Promise<GlassfySku> {
-    return GlassfyModule.skuWithIdentifier(skuIdentifier);
+    let skuobject = await GlassfyModule.skuWithIdentifier(identifier);
+    console.log(skuobject);
+    let sku = JSON.parse(skuobject);
+    console.log(sku);
+    return sku;
   }
 
   public static async login(userid: string): Promise<void> {
@@ -138,7 +142,7 @@ export class Glassfy {
   }
 
   public static async purchaseSku(sku: GlassfySku): Promise<GlassfySku> {
-    return GlassfyModule.purchaseSku(sku);
+    return GlassfyModule.purchaseSku(sku.skuId);
   }
 
   public static async restorePurchases(): Promise<GlassfySku> {

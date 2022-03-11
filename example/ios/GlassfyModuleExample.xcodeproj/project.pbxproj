@@ -509,7 +509,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.reactnativeglassfymodule;
+				PRODUCT_BUNDLE_IDENTIFIER = com.glassfy.androidexample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GlassfyModuleExample.app/GlassfyModuleExample";
 			};
@@ -528,7 +528,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.reactnativeglassfymodule;
+				PRODUCT_BUNDLE_IDENTIFIER = com.glassfy.androidexample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GlassfyModuleExample.app/GlassfyModuleExample";
 			};

@@ -64,3 +64,4 @@ fun skuFromJsonObject(jo:JSONObject):Sku {
     val productId = jo.getString("productId") ?: ""
     return Sku(skuId,productId, emptyMap<String, String>())
 }
+

@@ -1,4 +1,4 @@
-package com.example.reactnativeglassfymodule;
+package com.glassfy.androidexample;
 
 import com.facebook.react.ReactActivity;
 
