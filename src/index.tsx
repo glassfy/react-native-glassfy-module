@@ -52,12 +52,28 @@ export enum GLASSFY_ENTITLEMENT {
   AUTORENEWON = 5,
 }
 
+export interface GlassfyProductDiscount {
+  readonly price: number;
+  readonly period: string;
+  readonly numberOfPeriods: number;
+  readonly type: string;
+}
+
+export interface GlassfyProduct {
+  readonly description: string;
+  readonly currencyCode: string;
+  readonly price: number;
+  readonly introductoryPrice: GlassfyProductDiscount;
+  readonly discounts: GlassfyProductDiscount[];
+}
+
 export interface GlassfySku {
   readonly skuId: string;
   readonly productId: string;
   readonly introductoryEligibility: GLASSFY_ELEGGIBILITY;
   readonly promotionalEligibility: GLASSFY_ELEGGIBILITY;
   readonly extravars: { [key: string]: string };
+  readonly product: GlassfyProduct;
 }
 
 export interface GlassfyOffering {
