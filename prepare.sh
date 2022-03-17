@@ -3,6 +3,7 @@
 prepareReleseWithVersion() 
 {
     rm -rf example
+    rm -rf DEBUG.md
 }
 
 usage()
