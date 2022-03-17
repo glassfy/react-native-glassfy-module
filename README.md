@@ -1,13 +1,15 @@
-<p align="">
-  <img src="https://glassfy.io/assets/images/glassfy-logo.svg" height="50"/>
-</p>
+<img src="https://media.glassfy.io/banner_purple.png" />
 
+[![Platform](https://img.shields.io/cocoapods/p/Glassfy.svg?style=flat)](https://glassfy.io)
+[![License](https://img.shields.io/cocoapods/l/Glassfy.svg?style=flat)](https://glassfy.io)
+[![Npm](https://img.shields.io/npm/v/react-native-glassfy-module)](https://www.npmjs.com/package/react-native-glassfy-module)
 
 ### Glassfy React Native SDK
 
 Is the client for Glassfy: a subscription revenue optimisation infrastructure for mobile applications.
 
 ### Installation
+
 ```sh
 npm install react-native-glassfy-module
 ```
