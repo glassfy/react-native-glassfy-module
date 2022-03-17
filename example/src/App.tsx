@@ -7,10 +7,7 @@ async function getGlassfy() {
   try {
     console.log('pre initialize +++++');
 
-    await Glassfy.initialize(
-      '8NOV6FQBHHRJ4F9N2HV0HUXOQ5LL0QA3/OBMVM0E1ZZQ77TZOQNOETSHHPQOZX6LQ',
-      false
-    );
+    await Glassfy.initialize('50af3c1afb6f473bbaf1ad0d5fb19b41', false);
     console.log('after initia++++');
 
     console.log('pre offerings +++++');
@@ -18,7 +15,7 @@ async function getGlassfy() {
     let offerings = await Glassfy.offerings();
     console.log('post offerings +++++');
     console.log(offerings);
-    let sku = await Glassfy.skuWithIdentifier('monthly_article_subscription');
+    let sku = await Glassfy.skuWithIdentifier('weekly_article_subscription');
     console.log(sku);
     console.log('pre purchase +++++');
     await Glassfy.purchaseSku(sku);

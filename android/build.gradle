@@ -130,6 +130,6 @@ def kotlin_version = getExtOrDefault('kotlinVersion')
 dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
+  implementation("io.glassfy:androidsdk:0.9.0")
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation("io.glassfy:androidsdk:0.1.0-SNAPSHOT")
 }

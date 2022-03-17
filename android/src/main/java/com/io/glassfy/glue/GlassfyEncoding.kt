@@ -64,7 +64,7 @@ fun Sku.encodedJson(): JSONObject {
     val jo = JSONObject()
     jo.put("skuId",this.skuId)
     jo.put("productId",this.productId)
-    jo.put("product",this.skuDetails.econdedJson())
+    jo.put("product",this.product.econdedJson())
     return jo
 }
 
