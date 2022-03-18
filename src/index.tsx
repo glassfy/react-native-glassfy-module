@@ -100,6 +100,12 @@ export interface GlassfyPermissions {
   readonly all: [GlassfyPermission];
 }
 
+export interface GlassfyTransaction {
+  readonly productIdentifier: String;
+  readonly receiptValidated: boolean;
+  readonly permissions: GlassfyPermissions;
+}
+
 const LINKING_ERROR =
   `The package 'react-native-glassfy-module' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
@@ -157,7 +163,9 @@ export class Glassfy {
     return GlassfyModule.logout();
   }
 
-  public static async purchaseSku(sku: GlassfySku): Promise<GlassfySku> {
+  public static async purchaseSku(
+    sku: GlassfySku
+  ): Promise<GlassfyTransaction> {
     return GlassfyModule.purchaseSku(sku.skuId);
   }
 
