@@ -18,8 +18,9 @@ async function getGlassfy() {
     let sku = await Glassfy.skuWithIdentifier('weekly_article_subscription');
     console.log(sku);
     console.log('pre purchase +++++');
-    await Glassfy.purchaseSku(sku);
+    let transaction = await Glassfy.purchaseSku(sku);
     console.log('post purchase +++++');
+    console.log(transaction);
   } catch (e) {
     console.log('##############################################');
     console.log(e);
