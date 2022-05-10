@@ -61,8 +61,8 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun skuWithIdentifier(identifier:String,promise: Promise) {
-    GlassfyGlue.skuWithIdentifier(identifier) { value, error -> pluginCompletion(promise, value, error) }
+  fun skuWithId(identifier:String,promise: Promise) {
+    GlassfyGlue.skuWithId(identifier) { value, error -> pluginCompletion(promise, value, error) }
   }
 
 

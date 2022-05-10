@@ -15,7 +15,9 @@ async function getGlassfy() {
     let offerings = await Glassfy.offerings();
     console.log('post offerings +++++');
     console.log(offerings);
-    let sku = await Glassfy.skuWithIdentifier('weekly_article_subscription');
+    console.log('pre skuWithId +++++');
+    let sku = await Glassfy.skuWithId('weekly_article_subscription');
+    console.log('post skuWithId +++++');
     console.log(sku);
     console.log('pre purchase +++++');
     let transaction = await Glassfy.purchaseSku(sku);

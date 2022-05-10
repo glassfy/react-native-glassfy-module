@@ -44,14 +44,14 @@ RCT_REMAP_METHOD(offerings,
     [GlassfyGlue offeringsWithCompletion:[self responseFromGlassfyGluewithResolver:resolve withRejecter:reject]];
 }
 
-RCT_REMAP_METHOD(skuWithIdentifier,
-                 skuWithIdentifier:(NSString*)identifier
+RCT_REMAP_METHOD(skuWithId,
+                 skuWithId:(NSString*)identifier
                  withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 {
 
     
-    [GlassfyGlue skuWithIdentifier:identifier withCompletion:[self responseFromGlassfyGluewithResolver:resolve withRejecter:reject]];
+    [GlassfyGlue skuWithId:identifier withCompletion:[self responseFromGlassfyGluewithResolver:resolve withRejecter:reject]];
 }
 
 RCT_REMAP_METHOD(login,
