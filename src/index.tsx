@@ -145,13 +145,8 @@ export class Glassfy {
     return GlassfyModule.offerings();
   }
 
-  public static async skuWithIdentifier(
-    identifier: string
-  ): Promise<GlassfySku> {
-    let skuobject = await GlassfyModule.skuWithIdentifier(identifier);
-    console.log(skuobject);
-    let sku = JSON.parse(skuobject);
-    console.log(sku);
+  public static async skuWithId(identifier: string): Promise<GlassfySku> {
+    let sku = await GlassfyModule.skuWithId(identifier);
     return sku;
   }
 
@@ -166,7 +161,7 @@ export class Glassfy {
   public static async purchaseSku(
     sku: GlassfySku
   ): Promise<GlassfyTransaction> {
-    return GlassfyModule.purchaseSku(sku.skuId);
+    return GlassfyModule.purchaseSku(sku);
   }
 
   public static async restorePurchases(): Promise<GlassfySku> {

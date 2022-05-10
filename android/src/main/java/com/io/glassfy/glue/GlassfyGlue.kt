@@ -54,7 +54,7 @@ object GlassfyGlue {
     }
   }
 
-  fun skuWithIdentifier(identifier: String, callback: GlueCallback) {
+  fun skuWithId(identifier: String, callback: GlueCallback) {
     Glassfy.sku(identifier) { sku, err ->
       if (err != null) {
         callback(null, err.toString())
