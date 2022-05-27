@@ -5,97 +5,159 @@
 
 RCT_EXPORT_MODULE()
 
-// Example method
-// See // https://reactnative.dev/docs/native-modules-ios
-RCT_REMAP_METHOD(multiply,
-                 multiplyWithA:(nonnull NSNumber*)a withB:(nonnull NSNumber*)b
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
-  NSNumber *result = @([a floatValue] * [b floatValue]);
-
-  resolve(result);
+RCT_REMAP_METHOD(sdkVersion, sdkVersionWithResolver
+                 : (RCTPromiseResolveBlock)resolve withRejecter
+                 : (RCTPromiseRejectBlock)reject) {
+    
+    [GlassfyGlue
+     sdkVersionWithCompletion:[self
+                               responseFromGlassfyGluewithResolver:resolve
+                               withRejecter:reject]];
 }
 
-RCT_REMAP_METHOD(sdkVersion,
-                 sdkVersionWithResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
-
-    [GlassfyGlue sdkVersionWithCompletion:[self responseFromGlassfyGluewithResolver:resolve withRejecter:reject]];
-}
-
-RCT_EXPORT_METHOD(initializeWithApiKey:(NSString *)apiKey
-                  watcherMode:(BOOL)watcherMode
-                  withResolver:(RCTPromiseResolveBlock)resolve
-                  withRejecter:(RCTPromiseRejectBlock)reject) {
+RCT_REMAP_METHOD(initialize,
+                 initializeWithApiKey : (NSString *)apiKey
+                 watcherMode: (BOOL)watcherMode
+                 withResolver : (RCTPromiseResolveBlock)resolve
+                 withRejecter : (RCTPromiseRejectBlock)reject) {
     
     [GlassfyGlue initializeWithApiKey:apiKey
                           watcherMode:watcherMode
-                       withCompletion:[self responseFromGlassfyGluewithResolver:resolve withRejecter:reject]];
+                       withCompletion:[self responseFromGlassfyGluewithResolver:resolve
+                                                                   withRejecter:reject]];
 }
 
+RCT_REMAP_METHOD(setLogLevel,
+                 setLogLevel : (int)logLevel
+                 withResolver: (RCTPromiseResolveBlock)resolve
+                 withRejecter: (RCTPromiseRejectBlock)reject) {
+    
+    [GlassfyGlue setLogLevel:logLevel];
+    resolve(nil);
+}
 
 RCT_REMAP_METHOD(offerings,
-                 offeringsWithResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
-
-    [GlassfyGlue offeringsWithCompletion:[self responseFromGlassfyGluewithResolver:resolve withRejecter:reject]];
+                 offeringsWithResolver : (RCTPromiseResolveBlock)resolve
+                 withRejecter: (RCTPromiseRejectBlock)reject) {
+    
+    [GlassfyGlue offeringsWithCompletion:[self responseFromGlassfyGluewithResolver:resolve
+                                                                      withRejecter:reject]];
 }
 
-RCT_REMAP_METHOD(skuWithId,
-                 skuWithId:(NSString*)identifier
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
+RCT_REMAP_METHOD(permissions,
+                 permissionsWithResolver : (RCTPromiseResolveBlock)resolve
+                 withRejecter: (RCTPromiseRejectBlock)reject) {
+    
+    [GlassfyGlue permissionsWithCompletion:[self responseFromGlassfyGluewithResolver:resolve
+                                                                        withRejecter:reject]];
+}
 
+
+RCT_REMAP_METHOD(skuWithId, skuWithId
+                 : (NSString *)identifier withResolver
+                 : (RCTPromiseResolveBlock)resolve withRejecter
+                 : (RCTPromiseRejectBlock)reject) {
     
     [GlassfyGlue skuWithId:identifier withCompletion:[self responseFromGlassfyGluewithResolver:resolve withRejecter:reject]];
 }
 
-RCT_REMAP_METHOD(login,
-                 login:(NSString*)userId
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
-    [GlassfyGlue loginUser:userId withCompletion:[self responseFromGlassfyGluewithResolver:resolve withRejecter:reject]];
+RCT_REMAP_METHOD(skuWithIdAndStore, skuWithIdAndStore
+                 : (NSString *)identifier store:(int)store withResolver
+                 : (RCTPromiseResolveBlock)resolve withRejecter
+                 : (RCTPromiseRejectBlock)reject) {
+    
+    [GlassfyGlue skuWithId:identifier store:store completion:[self responseFromGlassfyGluewithResolver:resolve
+                                                                                          withRejecter:reject]];
 }
-
-RCT_REMAP_METHOD(logout,
-                 logoutWithResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
-    [GlassfyGlue logoutUserWithCompletion:[self responseFromGlassfyGluewithResolver:resolve withRejecter:reject]];
-}
-
 
 RCT_REMAP_METHOD(purchaseSku,
-                 purchaseSku:(NSDictionary*)sku
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
-    [GlassfyGlue purchaseSku:sku withCompletion:[self responseFromGlassfyGluewithResolver:resolve withRejecter:reject]];
+                 purchaseSku : (NSDictionary *)sku
+                 withResolver : (RCTPromiseResolveBlock)resolve
+                 withRejecter : (RCTPromiseRejectBlock)reject) {
+    [GlassfyGlue purchaseSku:sku
+              withCompletion:[self responseFromGlassfyGluewithResolver:resolve
+                                                          withRejecter:reject]];
 }
 
 RCT_REMAP_METHOD(restorePurchases,
-                 restorePurchasesWithResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
-    [GlassfyGlue restorePurchasesWithCompletion:[self responseFromGlassfyGluewithResolver:resolve withRejecter:reject]];
+                 restorePurchasesWithResolver: (RCTPromiseResolveBlock)resolve
+                 withRejecter: (RCTPromiseRejectBlock)reject) {
+    [GlassfyGlue restorePurchasesWithCompletion:[self responseFromGlassfyGluewithResolver:resolve
+                                                                             withRejecter:reject]];
+}
+
+RCT_REMAP_METHOD(setDeviceToken,
+                 setDeviceToken:(NSString *)token
+                 withResolver: (RCTPromiseResolveBlock)resolve
+                 withRejecter: (RCTPromiseRejectBlock)reject) {
+    [GlassfyGlue setDeviceToken:token withCompletion:[self responseFromGlassfyGluewithResolver:resolve
+                                                                                  withRejecter:reject]];
+}
+
+RCT_REMAP_METHOD(setEmailUserProperty,
+                 setEmailUserProperty:(NSString *_Nonnull)email
+                 withResolver: (RCTPromiseResolveBlock)resolve
+                 withRejecter: (RCTPromiseRejectBlock)reject) {
+    [GlassfyGlue setEmailUserProperty:email withCompletion:[self responseFromGlassfyGluewithResolver:resolve
+                                                                                        withRejecter:reject]];
+}
+
+RCT_REMAP_METHOD(setExtraUserProperty,
+                 setExtraUserProperty:(NSDictionary *_Nonnull)extraProp
+                 withResolver: (RCTPromiseResolveBlock)resolve
+                 withRejecter: (RCTPromiseRejectBlock)reject) {
+    [GlassfyGlue setExtraUserProperty:extraProp withCompletion:[self responseFromGlassfyGluewithResolver:resolve
+                                                                                        withRejecter:reject]];
+}
+
+RCT_REMAP_METHOD(getUserProperties,
+                 getUserPropertiesWithResolver: (RCTPromiseResolveBlock)resolve
+                 withRejecter: (RCTPromiseRejectBlock)reject) {
+    [GlassfyGlue getExtraUserPropertyWithCompletion:[self responseFromGlassfyGluewithResolver:resolve
+                                                                                withRejecter:reject]];
 }
 
 
-- (void (^)(NSDictionary *, NSError *))responseFromGlassfyGluewithResolver:(RCTPromiseResolveBlock)resolve
-                                                              withRejecter:(RCTPromiseRejectBlock)reject {
-    return ^(NSDictionary *_Nullable responseDictionary, NSError *_Nullable error) {
-        if ( error != nil ) {
-            reject([@(error.code) stringValue],error.localizedDescription,error);
+RCT_REMAP_METHOD(connectPaddleLicenseKey,
+                 connectPaddleLicenseKey:(NSString *)licenseKey
+                 force:(int)force
+                 withResolver: (RCTPromiseResolveBlock)resolve
+                 withRejecter: (RCTPromiseRejectBlock)reject) {
+    [GlassfyGlue connectPaddleLicenseKey:licenseKey force:force completion:[self responseFromGlassfyGluewithResolver:resolve
+                                                                                                        withRejecter:reject]];
+}
+
+RCT_REMAP_METHOD(connectCustomSubscriber,
+                 connectCustomSubscriber:(NSString *)subscriberId
+                 withResolver: (RCTPromiseResolveBlock)resolve
+                 withRejecter: (RCTPromiseRejectBlock)reject) {
+    
+    [GlassfyGlue connectCustomSubscriber:subscriberId completion:[self responseFromGlassfyGluewithResolver:resolve
+                                                                                              withRejecter:reject]];
+}
+
+RCT_REMAP_METHOD(storeInfo,
+                 storeInfoWithResolver: (RCTPromiseResolveBlock)resolve
+                 withRejecter: (RCTPromiseRejectBlock)reject) {
+    
+    [GlassfyGlue storeInfo:[self responseFromGlassfyGluewithResolver:resolve
+                                                                                              withRejecter:reject]];
+}
+
+
+
+
+- (void (^)(NSDictionary *, NSError *))
+responseFromGlassfyGluewithResolver:(RCTPromiseResolveBlock)resolve
+withRejecter:(RCTPromiseRejectBlock)reject {
+    return ^(NSDictionary *_Nullable responseDictionary,
+             NSError *_Nullable error) {
+        if (error != nil) {
+            reject([@(error.code) stringValue], error.localizedDescription, error);
             return;
         }
         resolve(responseDictionary);
     };
 }
-
 
 @end

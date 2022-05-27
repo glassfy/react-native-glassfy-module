@@ -6,17 +6,17 @@ export enum GLASSFY_ELEGGIBILITY {
   UNKNOWN = 0,
 }
 
-export enum GLASSFY_LOGFLAG {
-  FLAGERROR = 1 << 0,
-  FLAGDEBUG = 1 << 1,
-  FLAGINFO = 1 << 2,
+export enum GLASSFY_STORE {
+  AppStore = 1,
+  PlayStore = 2,
+  Paddle = 3,
 }
-
 export enum GLASSFY_LOGLEVEL {
-  LOGLEVELOFF = 0,
-  LOGLEVELERROR = LOGLEVELOFF | GLASSFY_LOGFLAG.FLAGERROR,
-  LOGLEVELDEBUG = LOGLEVELERROR | GLASSFY_LOGFLAG.FLAGDEBUG,
-  LOGLEVELINFO = LOGLEVELDEBUG | GLASSFY_LOGFLAG.FLAGINFO,
+  OFF = 0,
+  ERROR = 1,
+  DEBUG = 2,
+  INFO = 3,
+  ALL = 3,
 }
 
 export enum GLASSFY_ENTITLEMENT {
@@ -67,17 +67,29 @@ export interface GlassfyProduct {
   readonly discounts: GlassfyProductDiscount[];
 }
 
-export interface GlassfySku {
+export interface GlassfySkuBase {
   readonly skuId: string;
   readonly productId: string;
+  readonly store: GLASSFY_STORE;
+}
+export interface GlassfySku extends GlassfySkuBase {
   readonly introductoryEligibility: GLASSFY_ELEGGIBILITY;
   readonly promotionalEligibility: GLASSFY_ELEGGIBILITY;
   readonly extravars: { [key: string]: string };
   readonly product: GlassfyProduct;
 }
 
+export interface GlassfySkuPaddle extends GlassfySkuBase {
+  readonly name: string;
+  readonly initialPrice: number;
+  readonly initialPriceCode: string;
+  readonly recurringPrice: number;
+  readonly recurringPriceCode: string;
+  readonly extravars: { [key: string]: string };
+}
+
 export interface GlassfyOffering {
-  readonly identifier: string;
+  readonly offeringId: string;
   readonly skus: [GlassfySku];
 }
 
@@ -89,7 +101,7 @@ export interface GlassfyPermission {
   readonly entitlement: GLASSFY_ENTITLEMENT;
   readonly isValid: boolean;
   readonly expireDate: string;
-  readonly accountableSkus: [string];
+  readonly accountableSkus: [GlassfySkuBase];
 }
 
 export interface GlassfyPermissions {
@@ -105,6 +117,13 @@ export interface GlassfyTransaction {
   readonly receiptValidated: boolean;
   readonly permissions: GlassfyPermissions;
 }
+export interface GlassfyUserProperties {
+  readonly email: String;
+  readonly token: boolean;
+  readonly extra: GlassfyExtraProperty;
+}
+
+export type GlassfyExtraProperty = { [key: string]: string };
 
 const LINKING_ERROR =
   `The package 'react-native-glassfy-module' doesn't seem to be linked. Make sure: \n\n` +
@@ -139,23 +158,60 @@ export class Glassfy {
     apiKey: string,
     watcherMode: boolean
   ): Promise<void> {
-    return GlassfyModule.initializeWithApiKey(apiKey, watcherMode);
+    return GlassfyModule.initialize(apiKey, watcherMode);
   }
+
+  public static async setLogLevel(level: GLASSFY_LOGLEVEL): Promise<void> {
+    return GlassfyModule.setLogLevel(level);
+  }
+
   public static async offerings(): Promise<GlassfyOfferings> {
     return GlassfyModule.offerings();
   }
 
+  public static async permissions(): Promise<GlassfyPermissions> {
+    return GlassfyModule.permissions();
+  }
   public static async skuWithId(identifier: string): Promise<GlassfySku> {
-    let sku = await GlassfyModule.skuWithId(identifier);
+    let sku = GlassfyModule.skuWithId(identifier);
     return sku;
   }
 
-  public static async login(userid: string): Promise<void> {
-    return GlassfyModule.login(userid);
+  public static async skuWithIdAndStore(
+    identifier: string,
+    store: GLASSFY_STORE
+  ): Promise<GlassfySkuBase> {
+    let sku = GlassfyModule.skuWithIdAndStore(identifier, store);
+    return sku;
   }
 
-  public static async logout(): Promise<void> {
-    return GlassfyModule.logout();
+  public static async connectCustomSubscriber(
+    subscriberId: string
+  ): Promise<GlassfySku> {
+    let sku = GlassfyModule.connectCustomSubscriber(subscriberId);
+    return sku;
+  }
+
+  public static async connectPaddleLicenseKey(
+    licenseKey: string,
+    force: boolean
+  ): Promise<void> {
+    GlassfyModule.connectPaddleLicenseKey(licenseKey, force ? 1 : 0);
+  }
+
+  public static async setEmailUserProperty(email: string): Promise<GlassfySku> {
+    let sku = GlassfyModule.setEmailUserProperty(email);
+    return sku;
+  }
+  public static async setExtraUserProperty(
+    extraProp: GlassfyExtraProperty
+  ): Promise<void> {
+    GlassfyModule.setExtraUserProperty(extraProp);
+  }
+
+  public static async getUserProperties(): Promise<GlassfyUserProperties> {
+    let userProp = GlassfyModule.getUserProperties();
+    return userProp;
   }
 
   public static async purchaseSku(
