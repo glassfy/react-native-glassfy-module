@@ -183,4 +183,7 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   fun setDeviceToken(promise: Promise) {
     promise.resolve(null)
   }
+
+  @ReactMethod
+  fun subscribeOnPurchaseDelegate() {}
 }

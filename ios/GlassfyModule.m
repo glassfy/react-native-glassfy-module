@@ -1,6 +1,11 @@
 #import "GlassfyModule.h"
 #import <GlassfyGlue/GlassfyGlue.h>
 
+static NSString *const kDidPurchaseProduct = @"gy_did_purchase_product";
+
+@interface GlassfyModule() <GlassfyGluePurchaseDelegate>
+@end
+
 @implementation GlassfyModule
 
 RCT_EXPORT_MODULE()
@@ -144,6 +149,10 @@ RCT_REMAP_METHOD(storeInfo,
                                                                                               withRejecter:reject]];
 }
 
+RCT_EXPORT_METHOD(subscribeOnPurchaseDelegate) {
+    [GlassfyGlue setPurchaseDelegate:self];
+}
+
 
 
 
@@ -158,6 +167,21 @@ withRejecter:(RCTPromiseRejectBlock)reject {
         }
         resolve(responseDictionary);
     };
+}
+
+
+#pragma mark - GlassfyGluePurchaseDelegate
+
+- (void)didPurchaseProduct:(NSDictionary<NSString *,id> *)transaction
+{
+    [self sendEventWithName:kDidPurchaseProduct body:transaction];
+}
+
+
+#pragma mark - Override RCTEventEmitter
+
+- (NSArray<NSString *> *)supportedEvents {
+    return @[kDidPurchaseProduct];
 }
 
 @end

@@ -1,5 +1,6 @@
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 
-@interface GlassfyModule : NSObject <RCTBridgeModule>
+@interface GlassfyModule : RCTEventEmitter <RCTBridgeModule>
 
 @end
