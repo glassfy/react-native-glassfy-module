@@ -65,3 +65,4 @@ lib/
 
 #java debug
 .hprof
+example/ios/Podfile.lock
