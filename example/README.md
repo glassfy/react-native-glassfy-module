@@ -22,3 +22,10 @@ To run the example on android
 ```
 yarn run android
 ```
+
+To refresh the glassfy module
+
+```
+yarn install --force
+rm ios/Podfile.lock
+```
