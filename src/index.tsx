@@ -1,5 +1,4 @@
-import {NativeEventEmitter, NativeModules, Platform } from 'react-native';
-
+import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
 
 export enum GLASSFY_ELEGGIBILITY {
   ELEGIBLE = 1,
@@ -98,7 +97,7 @@ export interface GlassfyOfferings {
   readonly all: [GlassfyOffering];
 }
 export interface GlassfyPermission {
-  readonly permissionIdentifier: string;
+  readonly permissionId: string;
   readonly entitlement: GLASSFY_ENTITLEMENT;
   readonly isValid: boolean;
   readonly expireDate: string;
@@ -126,11 +125,11 @@ export interface GlassfyUserProperties {
 
 export type GlassfyExtraProperty = { [key: string]: string };
 
-export interface GlassfyPurchaseDelegate  {
+export interface GlassfyPurchaseDelegate {
   didPurchaseProduct(transaction: GlassfyTransaction): void;
 }
 
-const EVENT_DID_PURCHASE_PRODUCT = "gy_did_purchase_product";
+const EVENT_DID_PURCHASE_PRODUCT = 'gy_did_purchase_product';
 
 const LINKING_ERROR =
   `The package 'react-native-glassfy-module' doesn't seem to be linked. Make sure: \n\n` +
@@ -194,16 +193,15 @@ export class Glassfy {
 
   public static async connectCustomSubscriber(
     subscriberId: string
-  ): Promise<GlassfySku> {
-    let sku = GlassfyModule.connectCustomSubscriber(subscriberId);
-    return sku;
+  ): Promise<void> {
+    return GlassfyModule.connectCustomSubscriber(subscriberId);
   }
 
   public static async connectPaddleLicenseKey(
     licenseKey: string,
     force: boolean
   ): Promise<void> {
-    GlassfyModule.connectPaddleLicenseKey(licenseKey, force ? 1 : 0);
+    return GlassfyModule.connectPaddleLicenseKey(licenseKey, force ? 1 : 0);
   }
 
   public static async setEmailUserProperty(email: string): Promise<GlassfySku> {
@@ -213,7 +211,7 @@ export class Glassfy {
   public static async setExtraUserProperty(
     extraProp: GlassfyExtraProperty
   ): Promise<void> {
-    GlassfyModule.setExtraUserProperty(extraProp);
+    return GlassfyModule.setExtraUserProperty(extraProp);
   }
 
   public static async getUserProperties(): Promise<GlassfyUserProperties> {
@@ -234,7 +232,7 @@ export class Glassfy {
   public static setPurchaseDelegate(delegate: GlassfyPurchaseDelegate) {
     const eventEmitter = new NativeEventEmitter(GlassfyModule);
     eventEmitter.removeAllListeners(EVENT_DID_PURCHASE_PRODUCT);
-    eventEmitter.addListener(EVENT_DID_PURCHASE_PRODUCT, transaction => {
+    eventEmitter.addListener(EVENT_DID_PURCHASE_PRODUCT, (transaction) => {
       delegate.didPurchaseProduct(transaction);
     });
     GlassfyModule.subscribeOnPurchaseDelegate();

@@ -1,21 +1,24 @@
 {
-  "name": "react-native-glassfy-module-example",
-  "description": "Example app for react-native-glassfy-module",
-  "version": "0.0.1",
-  "private": true,
+  "name": "example",
+  "version": "1.0.0",
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios --simulator 'iPhone 13 Pro'",
-    "start": "react-native start"
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web"
   },
   "dependencies": {
-    "react": "16.13.1",
-    "react-native": "0.63.4"
+    "expo": "~46.0.9",
+    "expo-splash-screen": "~0.16.2",
+    "expo-status-bar": "~1.4.0",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
+    "react-native": "0.69.5",
+    "react-native-glassfy-module": "file:../.",
+    "react-native-web": "~0.18.7"
   },
   "devDependencies": {
-    "@babel/core": "7.18.13",
-    "@babel/runtime": "7.18.9",
-    "babel-plugin-module-resolver": "4.1.0",
-    "metro-react-native-babel-preset": "0.72.1"
-  }
+    "@babel/core": "^7.12.9"
+  },
+  "private": true
 }
