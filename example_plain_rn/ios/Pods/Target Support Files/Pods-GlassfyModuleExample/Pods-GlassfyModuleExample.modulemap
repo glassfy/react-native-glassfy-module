@@ -1,6 +1,0 @@
-module Pods_GlassfyModuleExample {
-  umbrella header "Pods-GlassfyModuleExample-umbrella.h"
-
-  export *
-  module * { export * }
-}
