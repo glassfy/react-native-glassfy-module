@@ -88,20 +88,25 @@ export interface GlassfySkuPaddle extends GlassfySkuBase {
   readonly extravars: { [key: string]: string };
 }
 
+export interface GlassfyAccountableSku extends GlassfySkuBase {
+  readonly isInIntroOfferPeriod: boolean;
+  readonly isInTrialPeriod: boolean;
+}
+
 export interface GlassfyOffering {
   readonly offeringId: string;
-  readonly skus: [GlassfySku];
+  readonly skus: GlassfySku[];
 }
 
 export interface GlassfyOfferings {
-  readonly all: [GlassfyOffering];
+  readonly all: GlassfyOffering[];
 }
 export interface GlassfyPermission {
   readonly permissionId: string;
   readonly entitlement: GLASSFY_ENTITLEMENT;
   readonly isValid: boolean;
   readonly expireDate: string;
-  readonly accountableSkus: [GlassfySkuBase];
+  readonly accountableSkus: GlassfyAccountableSku[];
 }
 
 export interface GlassfyPermissions {
@@ -109,7 +114,7 @@ export interface GlassfyPermissions {
   readonly subscriberId: string;
   readonly originalApplicationVersion: string;
   readonly originalApplicationDate: string;
-  readonly all: [GlassfyPermission];
+  readonly all: GlassfyPermission[];
 }
 
 export interface GlassfyTransaction {
