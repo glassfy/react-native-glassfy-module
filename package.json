@@ -27,10 +27,9 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "prepare": "bob build",
     "release": "release-it",
-    "xcode": "open example/ios/GlassfyModuleExample.xcworkspace/",
-    "example": "yarn --cwd example",
-    "pods": "cd example && pod-install --quiet",
-    "bootstrap": "yarn example && yarn && yarn pods"
+    "example_app": "pod-install examples/example_app --quiet && yarn --cwd examples/example_app",
+    "simple_example": "pod-install examples/simple_example --quiet && yarn --cwd examples/simple_example",
+    "bootstrap": "yarn example_app && yarn simple_example"
   },
   "keywords": [
     "react-native",
@@ -66,7 +65,10 @@
     "react-native": "0.63.4",
     "react-native-builder-bob": "^0.18.0",
     "release-it": "^14.2.2",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "babel-jest": "^29.0.1",
+    "babel-loader": "^8.2.5",
+    "babel-preset-react-native": "^4.0.0"
   },
   "peerDependencies": {
     "react": "*",
