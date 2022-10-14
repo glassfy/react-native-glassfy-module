@@ -27,8 +27,8 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "prepare": "bob build",
     "release": "release-it",
-    "example_app": "pod-install examples/example_app --quiet && yarn --cwd examples/example_app",
-    "simple_example": "pod-install examples/simple_example --quiet && yarn --cwd examples/simple_example",
+    "example_app": "yarn --cwd examples/example_app && yarn && pod-install examples/example_app --quiet",
+    "simple_example": "yarn --cwd examples/simple_example && yarn && pod-install examples/simple_example --quiet",
     "bootstrap": "yarn example_app && yarn simple_example"
   },
   "keywords": [
