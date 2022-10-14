@@ -17,9 +17,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
     "ios": {
       "bundleIdentifier": "co.briseide.testapp"
     },
