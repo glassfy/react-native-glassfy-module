@@ -42,6 +42,17 @@ RCT_REMAP_METHOD(setLogLevel, setLogLevel
   resolve(nil);
 }
 
+RCT_REMAP_METHOD(presentAppStoreCodeRedemptionSheet,
+                 presentAppStoreCodeRedemptionSheetwithResolver
+                 : (RCTPromiseResolveBlock)resolve withRejecter
+                 : (RCTPromiseRejectBlock)reject) {
+
+  if (@available(iOS 14, *)) {
+    [[SKPaymentQueue defaultQueue] presentCodeRedemptionSheet];
+  }
+  resolve(nil);
+}
+
 RCT_REMAP_METHOD(offerings, offeringsWithResolver
                  : (RCTPromiseResolveBlock)resolve withRejecter
                  : (RCTPromiseRejectBlock)reject) {

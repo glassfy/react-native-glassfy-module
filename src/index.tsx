@@ -175,6 +175,9 @@ export class Glassfy {
   public static async setLogLevel(level: GLASSFY_LOGLEVEL): Promise<void> {
     return GlassfyModule.setLogLevel(level);
   }
+  public static async presentAppStoreCodeRedemptionSheet(): Promise<void> {
+    return GlassfyModule.presentAppStoreCodeRedemptionSheet();
+  }
 
   public static async offerings(): Promise<GlassfyOfferings> {
     return GlassfyModule.offerings();

@@ -67,6 +67,11 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
+  fun presentAppStoreCodeRedemptionSheet(promise: Promise) {
+    promise.resolve(null)
+  }
+
+  @ReactMethod
   fun offerings(promise: Promise) {
     GlassfyGlue.offerings { value, error -> pluginCompletion(promise, value, error) }
   }
