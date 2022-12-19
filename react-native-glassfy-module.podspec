@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,m,mm}"
 
   s.dependency "React-Core"
-  s.dependency "GlassfyGlue","1.3.3"
+  s.dependency "GlassfyGlue", "1.3.4"
 end

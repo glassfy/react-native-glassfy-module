@@ -191,4 +191,37 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun subscribeOnPurchaseDelegate() {}
+
+  @ReactMethod
+  fun setAttribution(type: Int, value: String, promise: Promise) {
+    GlassfyGlue.setAttribution(type, value) { res, error ->
+      pluginCompletion(
+        promise,
+        res,
+        error
+      )
+    }
+  }
+
+  @ReactMethod
+  fun setAttributions(items: ReadableArray, promise: Promise) {
+    val listItems =  mutableListOf<Map<String,Any?>>()
+    for (i in 0 until items.size()) {
+      val item = items.getMap(i)?.toHashMap()
+      if (item != null) {
+        listItems.add(item)
+      } else {
+        promise.reject("Invalid AttributionItem", "Invalid AttributionItem")
+        return
+      }
+    }
+
+    GlassfyGlue.setAttributions(listItems) { value, error ->
+      pluginCompletion(
+        promise,
+        value,
+        error
+      )
+    }
+  }
 }

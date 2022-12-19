@@ -186,6 +186,28 @@ RCT_EXPORT_METHOD(subscribeOnPurchaseDelegate) {
   [GlassfyGlue setPurchaseDelegate:self];
 }
 
+RCT_REMAP_METHOD(setAttribution, setAttribution
+                                  : (int )type value
+                 : (NSString*)value withResolver
+                 : (RCTPromiseResolveBlock)resolve withRejecter
+                 : (RCTPromiseRejectBlock)reject)  {
+    
+    [GlassfyGlue setAttributionType:@(type) value:value  completion:[self
+                                                                     responseFromGlassfyGluewithResolver:resolve
+                                                                                            withRejecter:reject]];
+}
+
+RCT_REMAP_METHOD(setAttributions, setAttributions
+                 : (NSArray*)items withResolver
+                 : (RCTPromiseResolveBlock)resolve withRejecter
+                 : (RCTPromiseRejectBlock)reject)  {
+    
+   [GlassfyGlue setAttributions:items completion:[self
+                                                  responseFromGlassfyGluewithResolver:resolve
+                                                                         withRejecter:reject]];
+}
+
+
 - (void (^)(NSDictionary *, NSError *))
     responseFromGlassfyGluewithResolver:(RCTPromiseResolveBlock)resolve
                            withRejecter:(RCTPromiseRejectBlock)reject {

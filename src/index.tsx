@@ -52,6 +52,17 @@ export enum GLASSFY_ENTITLEMENT {
   AUTORENEWON = 5,
 }
 
+export enum GLASSFY_ATTRIBUTION_TYPE {
+  AdjustID = 1,
+   AppsFlyerID = 2,
+   IP = 3,
+   IDFA = 4,
+   IDFV = 5,
+   GAID = 6,
+   ASID = 7,
+   AID = 8
+}
+
 export interface GlassfyProductDiscount {
   readonly price: number;
   readonly period: string;
@@ -126,6 +137,11 @@ export interface GlassfyUserProperties {
   readonly email: String;
   readonly token: boolean;
   readonly extra: GlassfyExtraProperty;
+}
+
+export interface GlassfyAttributionItem {
+  readonly type: GLASSFY_ATTRIBUTION_TYPE;
+  readonly value: string;
 }
 
 export type GlassfyExtraProperty = { [key: string]: string };
@@ -235,6 +251,14 @@ export class Glassfy {
 
   public static async restorePurchases(): Promise<GlassfySku> {
     return GlassfyModule.restorePurchases();
+  }
+
+  public static async setAttribution(type: GLASSFY_ATTRIBUTION_TYPE, value: string): Promise<void> {
+    return GlassfyModule.setAttribution(type, value);
+  }
+
+  public static async setAttributions(items: Array<GlassfyAttributionItem>): Promise<void> {
+    return GlassfyModule.setAttributions(items);
   }
 
   public static setPurchaseDelegate(delegate: GlassfyPurchaseDelegate) {
