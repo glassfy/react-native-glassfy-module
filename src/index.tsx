@@ -221,16 +221,19 @@ export class Glassfy {
   public static async sdkVersion(): Promise<GlassfyVersion> {
     return GlassfyModule.sdkVersion();
   }
+  
   public static async initialize(
     apiKey: string,
     watcherMode: boolean
   ): Promise<void> {
-    return GlassfyModule.initialize(apiKey, watcherMode);
+    const version = '1.3.7';
+    return GlassfyModule.initialize(apiKey, watcherMode, version);
   }
 
   public static async setLogLevel(level: GLASSFY_LOGLEVEL): Promise<void> {
     return GlassfyModule.setLogLevel(level);
   }
+
   public static async presentAppStoreCodeRedemptionSheet(): Promise<void> {
     return GlassfyModule.presentAppStoreCodeRedemptionSheet();
   }
