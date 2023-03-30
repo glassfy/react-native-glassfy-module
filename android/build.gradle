@@ -3,6 +3,7 @@ buildscript {
   def kotlin_version = rootProject.ext.has('kotlinVersion') ? rootProject.ext.get('kotlinVersion') : project.properties['GlassfyModule_kotlinVersion']
 
   repositories {
+      mavenLocal()
       google()
       mavenCentral()
   }
@@ -50,6 +51,7 @@ android {
 }
 
 repositories {
+  mavenLocal()
   mavenCentral()
   google()
   maven {
@@ -127,6 +129,6 @@ def kotlin_version = getExtOrDefault('kotlinVersion')
 dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
-  implementation("io.glassfy:androidglue:1.3.7")
+  implementation("io.glassfy:androidglue:1.3.8")
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
