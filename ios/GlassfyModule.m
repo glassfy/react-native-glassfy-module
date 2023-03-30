@@ -63,6 +63,16 @@ RCT_REMAP_METHOD(offerings, offeringsWithResolver
                                                          withRejecter:reject]];
 }
 
+RCT_REMAP_METHOD(purchaseHistory, purchaseHistoryWithResolver
+                 : (RCTPromiseResolveBlock)resolve withRejecter
+                 : (RCTPromiseRejectBlock)reject) {
+
+  [GlassfyGlue
+      purchaseHistoryWithCompletion:[self
+                                  responseFromGlassfyGluewithResolver:resolve
+                                                         withRejecter:reject]];
+}
+
 RCT_REMAP_METHOD(permissions, permissionsWithResolver
                  : (RCTPromiseResolveBlock)resolve withRejecter
                  : (RCTPromiseRejectBlock)reject) {

@@ -6,11 +6,28 @@ export enum GLASSFY_ELEGGIBILITY {
   UNKNOWN = 0,
 }
 
+export enum GLASSFY_EVENT_TYPE {
+  InitialBuy = 5001,
+  Restarted = 5002,
+  Renewed = 5003,
+  Expired = 5004,
+  DidChangeRenewalStatus = 5005,
+  IsInBillingRetryPeriod = 5006,
+  ProductChange = 5007,
+  InAppPurchase = 5008,
+  Refund = 5009,
+  Paused = 5010,
+  Resumed = 5011,
+  ConnectLicense = 5012,
+  DisconnectLicense = 5013
+}
+
 export enum GLASSFY_STORE {
   AppStore = 1,
   PlayStore = 2,
   Paddle = 3,
 }
+
 export enum GLASSFY_LOGLEVEL {
   OFF = 0,
   ERROR = 1,
@@ -112,6 +129,29 @@ export interface GlassfyOffering {
 export interface GlassfyOfferings {
   readonly all: GlassfyOffering[];
 }
+
+export interface GlassfyPurchasesHistory {
+  readonly all: GlassfyPurchaseHistory[];
+}
+
+export interface GlassfyPurchaseHistory {
+  readonly productId: string;
+  readonly skuId: string;
+  readonly type: GLASSFY_EVENT_TYPE
+  readonly store: GLASSFY_STORE;
+  readonly purchaseDate: string;
+  readonly expireDate: string;
+  readonly transactionId: string;
+  readonly subscriberId: string;
+  readonly currencyCode: string;
+  readonly countryCode: string;
+  readonly isInIntroOfferPeriod: boolean;
+  readonly promotionalOfferId: string;
+  readonly offerCodeRefName: string;
+  readonly licenseCode: string;
+  readonly webOrderLineItemId: string;
+}
+
 export interface GlassfyPermission {
   readonly permissionId: string;
   readonly entitlement: GLASSFY_ENTITLEMENT;
@@ -199,20 +239,23 @@ export class Glassfy {
     return GlassfyModule.offerings();
   }
 
+  public static async purchaseHistory(): Promise<GlassfyPurchasesHistory> {
+    return GlassfyModule.purchaseHistory();
+  }
+
   public static async permissions(): Promise<GlassfyPermissions> {
     return GlassfyModule.permissions();
   }
+  
   public static async skuWithId(identifier: string): Promise<GlassfySku> {
-    let sku = GlassfyModule.skuWithId(identifier);
-    return sku;
+    return GlassfyModule.skuWithId(identifier);
   }
 
   public static async skuWithIdAndStore(
     identifier: string,
     store: GLASSFY_STORE
   ): Promise<GlassfySkuBase> {
-    let sku = GlassfyModule.skuWithIdAndStore(identifier, store);
-    return sku;
+    return GlassfyModule.skuWithIdAndStore(identifier, store);
   }
 
   public static async connectCustomSubscriber(
@@ -229,8 +272,7 @@ export class Glassfy {
   }
 
   public static async setEmailUserProperty(email: string): Promise<GlassfySku> {
-    let sku = GlassfyModule.setEmailUserProperty(email);
-    return sku;
+    return GlassfyModule.setEmailUserProperty(email);
   }
   public static async setExtraUserProperty(
     extraProp: GlassfyExtraProperty
@@ -239,8 +281,7 @@ export class Glassfy {
   }
 
   public static async getUserProperties(): Promise<GlassfyUserProperties> {
-    let userProp = GlassfyModule.getUserProperties();
-    return userProp;
+    return GlassfyModule.getUserProperties();
   }
 
   public static async purchaseSku(

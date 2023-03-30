@@ -77,6 +77,11 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
+  fun purchaseHistory(promise: Promise) {
+    GlassfyGlue.purchaseHistory { value, error -> pluginCompletion(promise, value, error) }
+  }
+
+  @ReactMethod
   fun permissions(promise: Promise) {
     GlassfyGlue.permissions { value, error -> pluginCompletion(promise, value, error) }
   }
