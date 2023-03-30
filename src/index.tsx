@@ -274,9 +274,10 @@ export class Glassfy {
     return GlassfyModule.connectPaddleLicenseKey(licenseKey, force ? 1 : 0);
   }
 
-  public static async setEmailUserProperty(email: string): Promise<GlassfySku> {
+  public static async setEmailUserProperty(email: string): Promise<void> {
     return GlassfyModule.setEmailUserProperty(email);
   }
+
   public static async setExtraUserProperty(
     extraProp: GlassfyExtraProperty
   ): Promise<void> {
