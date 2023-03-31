@@ -20,17 +20,20 @@ RCT_REMAP_METHOD(sdkVersion, sdkVersionWithResolver
                                                           withRejecter:reject]];
 }
 
-RCT_REMAP_METHOD(initialize, initializeWithApiKey
-                 : (NSString *)apiKey watcherMode
-                 : (BOOL)watcherMode withResolver
-                 : (RCTPromiseResolveBlock)resolve withRejecter
-                 : (RCTPromiseRejectBlock)reject) {
-
-  [GlassfyGlue
-      initializeWithApiKey:apiKey
-               watcherMode:watcherMode
-            withCompletion:[self responseFromGlassfyGluewithResolver:resolve
-                                                        withRejecter:reject]];
+RCT_REMAP_METHOD(
+  initialize, 
+  initializeWithApiKey: (NSString*)apiKey 
+  watcherMode: (BOOL)watcherMode 
+  version: (NSString*)version
+  withResolver: (RCTPromiseResolveBlock)resolve 
+  withRejecter: (RCTPromiseRejectBlock)reject
+) {
+  [GlassfyGlue initializeWithApiKey: apiKey
+                        watcherMode: @(watcherMode)
+          crossPlatformSdkFramework: @"react-native"
+            crossPlatformSdkVersion: version
+                     withCompletion:[self responseFromGlassfyGluewithResolver: resolve
+                                                                 withRejecter: reject]];
 }
 
 RCT_REMAP_METHOD(setLogLevel, setLogLevel
@@ -59,6 +62,16 @@ RCT_REMAP_METHOD(offerings, offeringsWithResolver
 
   [GlassfyGlue
       offeringsWithCompletion:[self
+                                  responseFromGlassfyGluewithResolver:resolve
+                                                         withRejecter:reject]];
+}
+
+RCT_REMAP_METHOD(purchaseHistory, purchaseHistoryWithResolver
+                 : (RCTPromiseResolveBlock)resolve withRejecter
+                 : (RCTPromiseRejectBlock)reject) {
+
+  [GlassfyGlue
+      purchaseHistoryWithCompletion:[self
                                   responseFromGlassfyGluewithResolver:resolve
                                                          withRejecter:reject]];
 }

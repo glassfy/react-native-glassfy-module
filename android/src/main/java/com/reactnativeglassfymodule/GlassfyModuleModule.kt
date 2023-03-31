@@ -4,8 +4,6 @@ import com.facebook.react.bridge.*
 import io.glassfy.glue.GlassfyGlue
 import org.json.JSONArray
 import org.json.JSONObject
-import kotlin.reflect.typeOf
-
 
 class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
@@ -52,11 +50,13 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun initialize(apiKey: String, watcherMode: Boolean, promise: Promise) {
+  fun initialize(apiKey: String, watcherMode: Boolean, version: String, promise: Promise) {
     GlassfyGlue.initialize(
       this.reactApplicationContext,
       apiKey,
-      watcherMode
+      watcherMode,
+      "react-native",
+      version
     ) { value, error -> pluginCompletion(promise, value, error) }
   }
 
@@ -74,6 +74,11 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   @ReactMethod
   fun offerings(promise: Promise) {
     GlassfyGlue.offerings { value, error -> pluginCompletion(promise, value, error) }
+  }
+
+  @ReactMethod
+  fun purchaseHistory(promise: Promise) {
+    GlassfyGlue.purchaseHistory { value, error -> pluginCompletion(promise, value, error) }
   }
 
   @ReactMethod
