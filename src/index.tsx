@@ -274,6 +274,13 @@ export class Glassfy {
     return GlassfyModule.connectPaddleLicenseKey(licenseKey, force ? 1 : 0);
   }
 
+  public static async connectGlassfyUniversalCode(
+    universalCode: string,
+    force: boolean
+  ): Promise<void> {
+    return GlassfyModule.connectGlassfyUniversalCode(universalCode, force ? 1 : 0);
+  }
+
   public static async setEmailUserProperty(email: string): Promise<void> {
     return GlassfyModule.setEmailUserProperty(email);
   }
