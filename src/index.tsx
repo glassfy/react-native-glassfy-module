@@ -26,6 +26,8 @@ export enum GLASSFY_STORE {
   AppStore = 1,
   PlayStore = 2,
   Paddle = 3,
+  Stripe = 4,
+  Glassfy = 5,
 }
 
 export enum GLASSFY_LOGLEVEL {
@@ -226,7 +228,7 @@ export class Glassfy {
     apiKey: string,
     watcherMode: boolean
   ): Promise<void> {
-    const version = '1.3.7';
+    const version = '1.3.8';
     return GlassfyModule.initialize(apiKey, watcherMode, version);
   }
 
@@ -272,6 +274,13 @@ export class Glassfy {
     force: boolean
   ): Promise<void> {
     return GlassfyModule.connectPaddleLicenseKey(licenseKey, force ? 1 : 0);
+  }
+
+  public static async connectGlassfyUniversalCode(
+    universalCode: string,
+    force: boolean
+  ): Promise<void> {
+    return GlassfyModule.connectGlassfyUniversalCode(universalCode, force ? 1 : 0);
   }
 
   public static async setEmailUserProperty(email: string): Promise<void> {

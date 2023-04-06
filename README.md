@@ -1,6 +1,6 @@
 <img src="https://media.glassfy.io/banner_purple.png" />
 
-[![Platform](https://img.shields.io/cocoapods/p/Glassfy.svg?style=flat)](https://glassfy.io)
+[![Platform](https://img.shields.io/static/v1?label=platform&message=iOS%20|%20macOS%20|%20android&color=lightgray)](https://glassfy.io)
 [![License](https://img.shields.io/cocoapods/l/Glassfy.svg?style=flat)](https://glassfy.io)
 [![Npm](https://img.shields.io/npm/v/react-native-glassfy-module)](https://www.npmjs.com/package/react-native-glassfy-module)
 

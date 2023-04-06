@@ -125,6 +125,17 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
+  fun connectGlassfyUniversalCode(universalCode: String, force: Int, promise: Promise) {
+    GlassfyGlue.connectGlassfyUniversalCode(universalCode, force == 1) { value, error ->
+      pluginCompletion(
+        promise,
+        value,
+        error
+      )
+    }
+  }
+
+  @ReactMethod
   fun setEmailUserProperty(email: String, promise: Promise) {
     GlassfyGlue.setEmailUserProperty(email) { value, error ->
       pluginCompletion(

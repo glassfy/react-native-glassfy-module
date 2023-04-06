@@ -175,6 +175,19 @@ RCT_REMAP_METHOD(connectPaddleLicenseKey, connectPaddleLicenseKey
                                                          withRejecter:reject]];
 }
 
+RCT_REMAP_METHOD(connectGlassfyUniversalCode, connectGlassfyUniversalCode
+                 : (NSString *)licenseKey force
+                 : (int)force withResolver
+                 : (RCTPromiseResolveBlock)resolve withRejecter
+                 : (RCTPromiseRejectBlock)reject) {
+  [GlassfyGlue
+      connectGlassfyUniversalCode:licenseKey
+                            force:force
+                       completion:[self
+                                      responseFromGlassfyGluewithResolver:resolve
+                                                             withRejecter:reject]];
+}
+
 RCT_REMAP_METHOD(connectCustomSubscriber, connectCustomSubscriber
                  : (NSString *)subscriberId withResolver
                  : (RCTPromiseResolveBlock)resolve withRejecter
