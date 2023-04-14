@@ -176,12 +176,12 @@ RCT_REMAP_METHOD(connectPaddleLicenseKey, connectPaddleLicenseKey
 }
 
 RCT_REMAP_METHOD(connectGlassfyUniversalCode, connectGlassfyUniversalCode
-                 : (NSString *)licenseKey force
+                 : (NSString *)universalCode force
                  : (int)force withResolver
                  : (RCTPromiseResolveBlock)resolve withRejecter
                  : (RCTPromiseRejectBlock)reject) {
   [GlassfyGlue
-      connectGlassfyUniversalCode:licenseKey
+      connectGlassfyUniversalCode:universalCode
                             force:force
                        completion:[self
                                       responseFromGlassfyGluewithResolver:resolve
