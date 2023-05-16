@@ -233,7 +233,6 @@ RCT_REMAP_METHOD(setAttributions, setAttributions
                                                                          withRejecter:reject]];
 }
 
-
 - (void (^)(NSDictionary *, NSError *))
     responseFromGlassfyGluewithResolver:(RCTPromiseResolveBlock)resolve
                            withRejecter:(RCTPromiseRejectBlock)reject {
@@ -245,6 +244,29 @@ RCT_REMAP_METHOD(setAttributions, setAttributions
     }
     resolve(responseDictionary);
   };
+}
+
+RCT_REMAP_METHOD(_paywall, _paywall
+                 : (NSString*)remoteConfig withResolver
+                 : (RCTPromiseResolveBlock)resolve withRejecter
+                 : (RCTPromiseRejectBlock)reject)  {
+    
+   [GlassfyGlue paywallWithId:remoteConfig 
+                   completion:[self responseFromGlassfyGluewithResolver:resolve
+                                                           withRejecter:reject]];
+}
+
+RCT_REMAP_METHOD(_openUrl, _openUrl
+                 : (NSString*)urlString withResolver
+                 : (RCTPromiseResolveBlock)resolve withRejecter
+                 : (RCTPromiseRejectBlock)reject)  {
+    // ...
+}
+
+RCT_REMAP_METHOD(_closePaywall, _closePaywallWithResolver
+                 : (RCTPromiseResolveBlock)resolve withRejecter
+                 : (RCTPromiseRejectBlock)reject)  {
+    //...
 }
 
 #pragma mark - GlassfyGluePurchaseDelegate

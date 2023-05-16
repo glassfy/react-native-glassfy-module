@@ -1,28 +1,39 @@
 package com.reactnativeglassfymodule
 
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.facebook.react.bridge.*
+import com.facebook.react.modules.core.DeviceEventManagerModule
 import io.glassfy.glue.GlassfyGlue
+import io.glassfy.paywall.GlassfyPaywall
+import io.glassfy.paywall.PaywallListener
+import kotlinx.coroutines.MainScope
 import org.json.JSONArray
 import org.json.JSONObject
 
 class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
 
+  private var paywallFragment: DialogFragment? = null
+  private var paywallListener: PaywallListener? = null
+
   override fun getName(): String {
     return "GlassfyModule"
   }
 
   fun JSONObject.toMap(): Map<String, *> = keys().asSequence().associateWith {
-    when (val value = this[it])
-    {
-      is JSONArray ->
-      {
+    when (val value = this[it]) {
+      is JSONArray -> {
         val map = (0 until value.length()).associate { Pair(it.toString(), value[it]) }
         JSONObject(map).toMap().values.toList()
       }
+
       is JSONObject -> value.toMap()
       JSONObject.NULL -> null
-      else            -> value
+      else -> value
     }
   }
 
@@ -32,14 +43,12 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
       return
     }
 
-   if (value==null) {
-     promise.resolve(null)
-     return;
-   }
+    if (value == null) {
+      promise.resolve(null)
+      return;
+    }
 
-    // convert json string to JSONOBJECT
     val jo = value.let { JSONObject(it).toMap() }
-    // convert JSONOBJECT to NativeMap
     val map = Arguments.makeNativeMap(jo)
     promise.resolve(map)
   }
@@ -52,11 +61,7 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   @ReactMethod
   fun initialize(apiKey: String, watcherMode: Boolean, version: String, promise: Promise) {
     GlassfyGlue.initialize(
-      this.reactApplicationContext,
-      apiKey,
-      watcherMode,
-      "react-native",
-      version
+      this.reactApplicationContext, apiKey, watcherMode, "react-native", version
     ) { value, error -> pluginCompletion(promise, value, error) }
   }
 
@@ -95,9 +100,7 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   fun skuWithIdAndStore(identifier: String, store: Int, promise: Promise) {
     GlassfyGlue.skuWithIdAndStore(identifier, store) { value, error ->
       pluginCompletion(
-        promise,
-        value,
-        error
+        promise, value, error
       )
     }
   }
@@ -106,9 +109,7 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   fun connectCustomSubscriber(subscriberId: String, promise: Promise) {
     GlassfyGlue.connectCustomSubscriber(subscriberId) { value, error ->
       pluginCompletion(
-        promise,
-        value,
-        error
+        promise, value, error
       )
     }
   }
@@ -117,9 +118,7 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   fun connectPaddleLicenseKey(licenseKey: String, force: Int, promise: Promise) {
     GlassfyGlue.connectPaddleLicenseKey(licenseKey, force == 1) { value, error ->
       pluginCompletion(
-        promise,
-        value,
-        error
+        promise, value, error
       )
     }
   }
@@ -128,9 +127,7 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   fun connectGlassfyUniversalCode(universalCode: String, force: Int, promise: Promise) {
     GlassfyGlue.connectGlassfyUniversalCode(universalCode, force == 1) { value, error ->
       pluginCompletion(
-        promise,
-        value,
-        error
+        promise, value, error
       )
     }
   }
@@ -139,16 +136,14 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   fun setEmailUserProperty(email: String, promise: Promise) {
     GlassfyGlue.setEmailUserProperty(email) { value, error ->
       pluginCompletion(
-        promise,
-        value,
-        error
+        promise, value, error
       )
     }
   }
 
   @ReactMethod
   fun setExtraUserProperty(extra: ReadableMap, promise: Promise) {
-    val map = HashMap<String,String>()
+    val map = HashMap<String, String>()
 
     extra.entryIterator.forEach { entry ->
       val value = entry.value
@@ -161,9 +156,7 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
     }
     GlassfyGlue.setExtraUserProperty(map) { value, error ->
       pluginCompletion(
-        promise,
-        value,
-        error
+        promise, value, error
       )
     }
   }
@@ -174,26 +167,24 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-    fun purchaseSku(sku: ReadableMap, promise: Promise) {
-      val activity = this.reactApplicationContext.currentActivity
-      val skuId = sku.getString("skuId")
+  fun purchaseSku(sku: ReadableMap, promise: Promise) {
+    val activity = this.reactApplicationContext.currentActivity
+    val skuId = sku.getString("skuId")
 
-      if (activity == null) {
-        promise.reject("Invalid Android Activity", "Invalid Android Activity")
-        return
-      }
-      if (skuId == null) {
-        promise.reject("Invalid SKU", "Invalid SKU")
-        return
-      }
-      GlassfyGlue.purchaseSku(activity, skuId) { value, error ->
-         pluginCompletion(
-           promise,
-           value,
-            error
-          )
-       }
+    if (activity == null) {
+      promise.reject("Invalid Android Activity", "Invalid Android Activity")
+      return
     }
+    if (skuId == null) {
+      promise.reject("Invalid SKU", "Invalid SKU")
+      return
+    }
+    GlassfyGlue.purchaseSku(activity, skuId) { value, error ->
+      pluginCompletion(
+        promise, value, error
+      )
+    }
+  }
 
   @ReactMethod
   fun restorePurchases(promise: Promise) {
@@ -206,22 +197,21 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun subscribeOnPurchaseDelegate() {}
+  fun subscribeOnPurchaseDelegate() {
+  }
 
   @ReactMethod
   fun setAttribution(type: Int, value: String, promise: Promise) {
     GlassfyGlue.setAttribution(type, value) { res, error ->
       pluginCompletion(
-        promise,
-        res,
-        error
+        promise, res, error
       )
     }
   }
 
   @ReactMethod
   fun setAttributions(items: ReadableArray, promise: Promise) {
-    val listItems =  mutableListOf<Map<String,Any?>>()
+    val listItems = mutableListOf<Map<String, Any?>>()
     for (i in 0 until items.size()) {
       val item = items.getMap(i)?.toHashMap()
       if (item != null) {
@@ -234,10 +224,66 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
 
     GlassfyGlue.setAttributions(listItems) { value, error ->
       pluginCompletion(
-        promise,
-        value,
-        error
+        promise, value, error
       )
     }
+  }
+
+  @ReactMethod
+  fun _openUrl(urlString: String, promise: Promise) {
+    try {
+      val i = Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(urlString) }
+      currentActivity?.startActivity(i)
+    } catch (e: Exception) {
+      pluginCompletion(promise, null, e.toString())
+    }
+  }
+
+  @ReactMethod
+  fun _closePaywall(promise: Promise) {
+    MainScope().run {
+      paywallFragment?.dismiss()
+      paywallFragment = null
+      paywallListener = null
+    }
+    pluginCompletion(promise, null, null)
+  }
+
+  @ReactMethod
+  fun _paywall(remoteConfig: String, promise: Promise) {
+    if (paywallFragment != null) {
+      promise.reject(
+        "Only one paywall can be shown at a time",
+        "Only one paywall can be shown at a time, please call `GlassfyPaywall.close()`"
+      )
+      return
+    }
+    val activity = currentActivity as? AppCompatActivity
+    if (activity == null) {
+      promise.reject("No activity", "Could not find a AppCompatActivity")
+      return
+    }
+
+    val listener = ReactPaywallListener { eventName, payload ->
+      sendEvent(eventName, payload)
+    }
+    paywallListener = listener
+    GlassfyPaywall.paywall(remoteConfig, listener) { paywall, _ ->
+      MainScope().run {
+        paywall?.show(activity.supportFragmentManager, "paywall")
+      }
+      paywallFragment = paywall
+      pluginCompletion(promise, null, null)
+    }
+  }
+
+  private fun sendEvent(eventName: String, value: JSONObject) {
+    val params = Arguments.createMap()
+    params.putString("event", eventName)
+    params.putString("encodedData", value.toString(2))
+
+    reactApplicationContext
+      .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+      .emit("paywallEvent", params)
   }
 }
