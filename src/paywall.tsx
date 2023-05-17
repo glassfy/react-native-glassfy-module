@@ -1,8 +1,12 @@
 import type { GlassfySku, GlassfyTransaction } from './models';
 import { Glassfy } from './glassfy';
-import { DeviceEventEmitter } from 'react-native';
+import { DeviceEventEmitter, NativeEventEmitter, NativeModules, Platform } from 'react-native';
+
+const PAYWALL_EVENT = "paywallEvent";
 
 export class GlassfyPaywall {
+    static eventEmitter = new NativeEventEmitter(NativeModules.GlassfyModule);
+
     public static async paywall(remoteConfig: String, listener: PaywallListener | null) {
         this.detachPreviousListeners();
         this.attachListener(listener);
@@ -14,14 +18,21 @@ export class GlassfyPaywall {
     }
 
     private static detachPreviousListeners() {
-        DeviceEventEmitter.removeAllListeners('paywallEvent');
+        DeviceEventEmitter.removeAllListeners(PAYWALL_EVENT);
+        this.eventEmitter.removeAllListeners(PAYWALL_EVENT);
     }
 
     private static attachListener(listener: PaywallListener | null) {
         const handler = GlassfyPaywall.buildHandler(listener);
-        DeviceEventEmitter.addListener('paywallEvent', (event) => {
-            handler(event);
-        });
+        if (Platform.OS === 'android') {
+            DeviceEventEmitter.addListener(PAYWALL_EVENT, (event) => {
+                handler(event);
+            });
+        } else {
+            this.eventEmitter.addListener(PAYWALL_EVENT, (event) => {
+                handler(event);
+            });
+        }
     }
 
     private static buildHandler(listener: PaywallListener | null) {
@@ -46,7 +57,7 @@ export class GlassfyPaywall {
                     GlassfyPaywall._onPurchase(listener, sku);
                     break;
                 default:
-                    console.log(`[GlassfyPaywall] Unhandled paywall event ${event}`);
+                    console.log(`[GlassfyPaywall] Unhandled paywall event ${JSON.stringify(payload, null, 2)}`);
                     break;
             }
         };
