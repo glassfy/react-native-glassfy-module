@@ -268,7 +268,7 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
       sendEvent(eventName, payload)
     }
     paywallListener = listener
-    GlassfyPaywall.paywall(remoteConfig, listener) { paywall, _ ->
+    GlassfyPaywall.paywall(remoteConfig, listener, activity) { paywall, _ ->
       MainScope().run {
         paywall?.show(activity.supportFragmentManager, "paywall")
       }
@@ -285,5 +285,15 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
     reactApplicationContext
       .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
       .emit("paywallEvent", params)
+  }
+
+  @ReactMethod
+  fun addListener(eventName: String) {
+    // ...
+  }
+
+  @ReactMethod
+  fun removeListeners(count: Int) {
+    // ...
   }
 }
