@@ -255,47 +255,40 @@ RCT_REMAP_METHOD(_paywall, _paywall
                  : (NSString*)remoteConfig withResolver
                  : (RCTPromiseResolveBlock)resolve withRejecter
                  : (RCTPromiseRejectBlock)reject)  {
-    [Glassfy paywallWithId:remoteConfig completion:^(GYPaywall * _Nullable paywall, NSError * _Nullable paywallError) {
-        if (paywallError != nil) {
-            reject([@(paywallError.code) stringValue], paywallError.localizedDescription, paywallError);
+    [Glassfy paywallViewControllerWithId:remoteConfig completion:^(GYPaywallViewController * _Nullable viewController, NSError * _Nullable error) {
+        if (error != nil) {
+            reject([@(error.code) stringValue], error.localizedDescription, error);
             return;
         }
-        
-        [paywall loadPaywallViewController:^(GYPaywallViewController * _Nullable viewController, NSError * _Nullable viewControllerError) {
-            if (viewControllerError != nil) {
-                reject([@(viewControllerError.code) stringValue], viewControllerError.localizedDescription, viewControllerError);
-                return;
-            }
-            self.paywallViewController = viewController;
+        self.paywallViewController = viewController;
             
-            self.paywallListener = [[ReactPaywallListener alloc] initWithSendEvent:^(NSString * _Nullable eventName, NSDictionary * _Nullable payload) {
-                NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-                [params setObject:eventName forKey:@"event"];
-                [params setObject:[self convertToJsonString:payload] forKey:@"encodedData"];
+        self.paywallListener = [[ReactPaywallListener alloc] initWithSendEvent:^(NSString * _Nullable eventName, NSDictionary * _Nullable payload) {
+            NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+            [params setObject:eventName forKey:@"event"];
+            [params setObject:[self convertToJsonString:payload] forKey:@"encodedData"];
                 
-                [self sendEventWithName:kPaywallEvent body:params];
-            }];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIViewController *rootViewController = UIApplication.sharedApplication.delegate.window.rootViewController;
-                [rootViewController presentViewController:viewController animated:YES completion:nil];
-            });
-            
-            [viewController setCloseHandler:^(GYTransaction *transaction, NSError *error) {
-                [self.paywallListener onCloseWithTransaction:transaction error:error];
-            }];
-            [viewController setLinkHandler:^(NSURL *link) {
-                [self.paywallListener onLinkWithURL:link];
-            }];
-            [viewController setRestoreHandler:^{
-                [self.paywallListener onRestore];
-            }];
-            [viewController setPurchaseHandler:^(GYSku *sku) {
-                [self.paywallListener onPurchaseWithSKU:sku];
-            }];
-            
-            resolve(@{@"result": @"success"});
+            [self sendEventWithName:kPaywallEvent body:params];
         }];
+            
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIViewController *rootViewController = UIApplication.sharedApplication.delegate.window.rootViewController;
+            [rootViewController presentViewController:viewController animated:YES completion:nil];
+        });
+            
+        [viewController setCloseHandler:^(GYTransaction *transaction, NSError *error) {
+            [self.paywallListener onCloseWithTransaction:transaction error:error];
+        }];
+        [viewController setLinkHandler:^(NSURL *link) {
+            [self.paywallListener onLinkWithURL:link];
+        }];
+        [viewController setRestoreHandler:^{
+            [self.paywallListener onRestore];
+        }];
+        [viewController setPurchaseHandler:^(GYSku *sku) {
+            [self.paywallListener onPurchaseWithSKU:sku];
+        }];
+            
+        resolve(@{@"result": @"success"});
     }];
 }
 
