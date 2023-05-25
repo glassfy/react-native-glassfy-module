@@ -125,8 +125,8 @@ export class Glassfy {
     GlassfyModule.subscribeOnPurchaseDelegate();
   }
   
-  public static async _paywall(remoteConfig: String): Promise<void> {
-    await GlassfyModule._paywall(remoteConfig);
+  public static async _paywall(remoteConfig: String, preload: Boolean): Promise<void> {
+    await GlassfyModule._paywall(remoteConfig, preload);
   }
   
   public static async _closePaywall(): Promise<void> {

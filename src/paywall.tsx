@@ -7,10 +7,10 @@ const PAYWALL_EVENT = "paywallEvent";
 export class GlassfyPaywall {
     static eventEmitter = new NativeEventEmitter(NativeModules.GlassfyModule);
 
-    public static async paywall(remoteConfig: String, listener: PaywallListener | null) {
+    public static async paywall(remoteConfig: String, listener: PaywallListener | null, preload: Boolean = false) {
         this.detachPreviousListeners();
         this.attachListener(listener);
-        await Glassfy._paywall(remoteConfig);
+        await Glassfy._paywall(remoteConfig, preload);
     }
 
     public static async close() {

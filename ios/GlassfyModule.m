@@ -252,10 +252,11 @@ withRejecter:(RCTPromiseRejectBlock)reject {
 }
 
 RCT_REMAP_METHOD(_paywall, _paywall
-                 : (NSString*)remoteConfig withResolver
+                 : (NSString*)remoteConfig preload
+                 : (BOOL)preload withResolver
                  : (RCTPromiseResolveBlock)resolve withRejecter
                  : (RCTPromiseRejectBlock)reject)  {
-    [Glassfy paywallViewControllerWithId:remoteConfig completion:^(GYPaywallViewController * _Nullable viewController, NSError * _Nullable error) {
+    [Glassfy paywallViewControllerWithId:remoteConfig preload:preload completion:^(GYPaywallViewController * _Nullable viewController, NSError * _Nullable error) {
         if (error != nil) {
             reject([@(error.code) stringValue], error.localizedDescription, error);
             return;
@@ -265,8 +266,7 @@ RCT_REMAP_METHOD(_paywall, _paywall
         self.paywallListener = [[ReactPaywallListener alloc] initWithSendEvent:^(NSString * _Nullable eventName, NSDictionary * _Nullable payload) {
             NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
             [params setObject:eventName forKey:@"event"];
-            [params setObject:[self convertToJsonString:payload] forKey:@"encodedData"];
-                
+            [params setObject:[self convertToJsonString:payload] forKey:@"encodedData"];                
             [self sendEventWithName:kPaywallEvent body:params];
         }];
             
