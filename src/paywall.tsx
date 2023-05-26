@@ -70,9 +70,8 @@ export class GlassfyPaywall {
     ) {
         if (listener && listener.onClose) {
             listener.onClose(transaction, error);
-        } else {
-            GlassfyPaywall.close();
         }
+        GlassfyPaywall.close();
     }
 
     private static async _onRestore(listener: PaywallListener | null) {
