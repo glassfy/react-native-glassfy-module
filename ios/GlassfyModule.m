@@ -252,11 +252,13 @@ withRejecter:(RCTPromiseRejectBlock)reject {
 }
 
 RCT_REMAP_METHOD(_paywall, _paywall
-                 : (NSString*)remoteConfig preload
-                 : (BOOL)preload withResolver
+                 : (NSString*)remoteConfig awaitLoading
+                 : (BOOL)awaitLoading withResolver
                  : (RCTPromiseResolveBlock)resolve withRejecter
                  : (RCTPromiseRejectBlock)reject)  {
-    [Glassfy paywallViewControllerWithId:remoteConfig preload:preload completion:^(GYPaywallViewController * _Nullable viewController, NSError * _Nullable error) {
+    [Glassfy paywallViewControllerWithRemoteConfigurationId:remoteConfig 
+                                               awaitLoading:awaitLoading 
+                                               completion:^(GYPaywallViewController * _Nullable viewController, NSError * _Nullable error) {
         if (error != nil) {
             reject([@(error.code) stringValue], error.localizedDescription, error);
             return;

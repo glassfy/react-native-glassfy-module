@@ -250,7 +250,7 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun _paywall(remoteConfig: String, preload: Boolean, promise: Promise) {
+  fun _paywall(remoteConfig: String, awaitLoading: Boolean, promise: Promise) {
     if (paywallFragment != null) {
       promise.reject(
         "Only one paywall can be shown at a time",
@@ -268,7 +268,7 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
       sendEvent(eventName, payload)
     }
     paywallListener = listener
-    GlassfyPaywall.fragment(remoteConfig, listener, activity, preload) { paywall, _ ->
+    GlassfyPaywall.fragment(remoteConfig, activity, listener, awaitLoading) { paywall, _ ->
       MainScope().run {
         paywall?.show(activity.supportFragmentManager, "paywall")
       }
