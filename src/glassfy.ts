@@ -104,7 +104,7 @@ export class Glassfy {
     return GlassfyModule.purchaseSku(sku);
   }
 
-  public static async restorePurchases(): Promise<GlassfySku> {
+  public static async restorePurchases(): Promise<GlassfyPermissions> {
     return GlassfyModule.restorePurchases();
   }
 
