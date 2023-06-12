@@ -97,6 +97,8 @@ export class GlassfyPaywall {
             } catch (error) {
                 GlassfyPaywall._onClose(listener, null, error);
             }
+            GlassfyPaywall.detachPreviousListeners();
+            GlassfyPaywall.close();
         }
     }
 

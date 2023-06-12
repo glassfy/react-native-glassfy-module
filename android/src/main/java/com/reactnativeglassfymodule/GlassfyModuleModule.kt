@@ -9,7 +9,6 @@ import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import io.glassfy.glue.GlassfyGlue
 import io.glassfy.paywall.GlassfyPaywall
-import io.glassfy.paywall.PaywallListener
 import kotlinx.coroutines.MainScope
 import org.json.JSONArray
 import org.json.JSONObject
@@ -18,7 +17,7 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
 
   private var paywallFragment: DialogFragment? = null
-  private var paywallListener: PaywallListener? = null
+  private var paywallListener: ReactPaywallListener? = null
 
   override fun getName(): String {
     return "GlassfyModule"
@@ -270,7 +269,10 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
     paywallListener = listener
     GlassfyPaywall.fragment(remoteConfig, awaitLoading) { paywall, _ ->
       MainScope().run {
-        paywall?.listener = listener
+        paywall?.setCloseHandler(listener.onClose)
+        paywall?.setPurchaseHandler(listener.onPurchase)
+        paywall?.setRestoreHandler(listener.onRestore)
+        paywall?.setLinkHandler(listener.onLink)
         paywall?.show(activity.supportFragmentManager, "paywall")
       }
       paywallFragment = paywall
