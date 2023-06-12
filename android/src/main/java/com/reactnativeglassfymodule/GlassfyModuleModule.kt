@@ -267,7 +267,7 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
       sendEvent(eventName, payload)
     }
     paywallListener = listener
-    GlassfyPaywall.fragment(remoteConfig, awaitLoading) { paywall, _ ->
+    GlassfyPaywall.fragment(activity, remoteConfig, awaitLoading) { paywall, _ ->
       MainScope().run {
         paywall?.setCloseHandler(listener.onClose)
         paywall?.setPurchaseHandler(listener.onPurchase)
