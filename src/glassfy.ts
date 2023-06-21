@@ -29,7 +29,7 @@ export class Glassfy {
     apiKey: string,
     watcherMode: boolean
   ): Promise<void> {
-    const version = '1.4.0';
+    const version = '1.5.0';
     return GlassfyModule.initialize(apiKey, watcherMode, version);
   }
 

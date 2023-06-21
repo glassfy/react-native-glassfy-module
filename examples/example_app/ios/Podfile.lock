@@ -9,11 +9,11 @@ PODS:
     - ExpoModulesCore
   - EXFont (10.2.1):
     - ExpoModulesCore
-  - Expo (46.0.15):
+  - Expo (46.0.21):
     - ExpoModulesCore
-  - ExpoKeepAwake (10.2.0):
+  - ExpoKeepAwake (10.2.1):
     - ExpoModulesCore
-  - ExpoModulesCore (0.11.7):
+  - ExpoModulesCore (0.11.10):
     - React-Core
     - ReactCommon/turbomodule/core
   - ExpoSystemUI (1.3.0):
@@ -30,9 +30,9 @@ PODS:
     - React-jsi (= 0.69.6)
     - ReactCommon/turbomodule/core (= 0.69.6)
   - fmt (6.2.1)
-  - Glassfy (1.3.4)
-  - GlassfyGlue (1.3.3):
-    - Glassfy (= 1.3.4)
+  - Glassfy (1.4.0)
+  - GlassfyGlue (1.4.0):
+    - Glassfy (= 1.4.0)
   - glog (0.3.5)
   - RCT-Folly (2021.06.28.00-v2):
     - boost
@@ -243,8 +243,9 @@ PODS:
   - React-jsinspector (0.69.6)
   - React-logger (0.69.6):
     - glog
-  - react-native-glassfy-module (1.3.4):
-    - GlassfyGlue (= 1.3.3)
+  - react-native-glassfy-module (1.5.0):
+    - Glassfy (= 1.4.0)
+    - GlassfyGlue (= 1.4.0)
     - React-Core
   - react-native-safe-area-context (4.3.1):
     - RCT-Folly
@@ -318,7 +319,7 @@ PODS:
     - React-jsi (= 0.69.6)
     - React-logger (= 0.69.6)
     - React-perflogger (= 0.69.6)
-  - RNDeviceInfo (10.0.2):
+  - RNDeviceInfo (10.6.0):
     - React-Core
   - RNScreens (3.15.0):
     - React-Core
@@ -483,16 +484,16 @@ SPEC CHECKSUMS:
   EXConstants: 7c44785d41d8e959d527d23d29444277a4d1ee73
   EXFileSystem: 927e0a8885aa9c49e50fc38eaba2c2389f2f1019
   EXFont: 06df627203afcb8a3b3152ec06eb2f11f46f0cff
-  Expo: 7e821e708a35d2720ef6baa658e224dd91c4821e
-  ExpoKeepAwake: 0e8f18142e71bbf2c7f6aa66ebed249ba1420320
-  ExpoModulesCore: 2d60ec04c49641afb55fee3faac86fb108c68fe0
+  Expo: 99284f9f697b6def5988fdf50652e21f062991e3
+  ExpoKeepAwake: 8b47e5358d54ea4922b630a74f2acb026ab7a28b
+  ExpoModulesCore: 1b2f5f91eff132671f6d0642aad2ba7915c6ff41
   ExpoSystemUI: 9f550a8055e315f7b0c4da208de27e45fe7da0fb
   EXSplashScreen: 799bece80089219b2c989c1082d70f3b00995cda
   FBLazyVector: 739d2f9719faecb463c7aa191591af31c8c94182
   FBReactNativeSpec: 957de82f66e31f2f14bbec34e37242282fdd26de
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
-  Glassfy: b8da70f5298d7067bba595256b2ea062474ad0ea
-  GlassfyGlue: adcd24a3669f86ffccc393005dc39c0cf2e40aab
+  Glassfy: 6c13edc242715212cfd01a0a12c8553f2f06cfcb
+  GlassfyGlue: 5307e20bb8380ee1c44aa44bc0fbc4e093a47c09
   glog: 3d02b25ca00c2d456734d0bcff864cbc62f6ae1a
   RCT-Folly: b9d9fe1fc70114b751c076104e52f3b1b5e5a95a
   RCTRequired: c8c080849a3670601d5c7056023a2176067a69d8
@@ -508,7 +509,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: c61b60de03b3474e5749b8a8fd8e6507630d62c4
   React-jsinspector: eaacb698c5af7a99131bc1933806372c20222dfd
   React-logger: ebb4d31bbbe4f1a8a1a9b658d7429210b8f68160
-  react-native-glassfy-module: a8b74cec7c1f79380013e05e00fef67f27f203d6
+  react-native-glassfy-module: 90268646c38bed51705fc4adddde9527f9ae85da
   react-native-safe-area-context: 6c12e3859b6f27b25de4fee8201cfb858432d8de
   React-perflogger: 1fb1ad5333b43a5137afd7608695f7a42c5efd27
   React-RCTActionSheet: a435bd67689433575a1e5d7614b021d2c17f0726
@@ -522,11 +523,11 @@ SPEC CHECKSUMS:
   React-RCTVibration: 285f8538386c660e6b9497e204636acd93bf7fcc
   React-runtimeexecutor: 0af71c94f968fa10015bf0119951bccd2e4d8865
   ReactCommon: fe7580b9d10f00249facf25659e0ec051320cc8a
-  RNDeviceInfo: 0a7c1d2532aa7691f9b9925a27e43af006db4dae
+  RNDeviceInfo: 475a4c447168d0ad4c807e48ef5e0963a0f4eb1b
   RNScreens: 4a1af06327774490d97342c00aee0c2bafb497b7
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   Yoga: 75bf4b0131cfb46a659cd0c13309b79a6fcff66d
 
 PODFILE CHECKSUM: 5d41df22cd0cc287c55289b7d5ae0da04b699c78
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1
