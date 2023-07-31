@@ -1,5 +1,20 @@
 import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
-import type { GLASSFY_ATTRIBUTION_TYPE, GLASSFY_LOGLEVEL, GLASSFY_STORE, GlassfyAttributionItem, GlassfyExtraProperty, GlassfyOfferings, GlassfyPermissions, GlassfyPurchaseDelegate, GlassfyPurchasesHistory, GlassfySku, GlassfySkuBase, GlassfyTransaction, GlassfyUserProperties, GlassfyVersion } from './models';
+import type {
+  GLASSFY_ATTRIBUTION_TYPE,
+  GLASSFY_LOGLEVEL,
+  GLASSFY_STORE,
+  GlassfyAttributionItem,
+  GlassfyExtraProperty,
+  GlassfyOfferings,
+  GlassfyPermissions,
+  GlassfyPurchaseDelegate,
+  GlassfyPurchasesHistory,
+  GlassfySku,
+  GlassfySkuBase,
+  GlassfyTransaction,
+  GlassfyUserProperties,
+  GlassfyVersion,
+} from './models';
 
 const EVENT_DID_PURCHASE_PRODUCT = 'gy_did_purchase_product';
 
@@ -12,13 +27,13 @@ const LINKING_ERROR =
 const GlassfyModule = NativeModules.GlassfyModule
   ? NativeModules.GlassfyModule
   : new Proxy(
-    {},
-    {
-      get() {
-        throw new Error(LINKING_ERROR);
-      },
-    }
-  );
+      {},
+      {
+        get() {
+          throw new Error(LINKING_ERROR);
+        },
+      }
+    );
 
 export class Glassfy {
   public static async sdkVersion(): Promise<GlassfyVersion> {
@@ -29,7 +44,7 @@ export class Glassfy {
     apiKey: string,
     watcherMode: boolean
   ): Promise<void> {
-    const version = '1.5.0';
+    const version = '1.5.1';
     return GlassfyModule.initialize(apiKey, watcherMode, version);
   }
 
@@ -81,7 +96,10 @@ export class Glassfy {
     universalCode: string,
     force: boolean
   ): Promise<void> {
-    return GlassfyModule.connectGlassfyUniversalCode(universalCode, force ? 1 : 0);
+    return GlassfyModule.connectGlassfyUniversalCode(
+      universalCode,
+      force ? 1 : 0
+    );
   }
 
   public static async setEmailUserProperty(email: string): Promise<void> {
@@ -108,11 +126,16 @@ export class Glassfy {
     return GlassfyModule.restorePurchases();
   }
 
-  public static async setAttribution(type: GLASSFY_ATTRIBUTION_TYPE, value: string): Promise<void> {
+  public static async setAttribution(
+    type: GLASSFY_ATTRIBUTION_TYPE,
+    value: string
+  ): Promise<void> {
     return GlassfyModule.setAttribution(type, value);
   }
 
-  public static async setAttributions(items: Array<GlassfyAttributionItem>): Promise<void> {
+  public static async setAttributions(
+    items: Array<GlassfyAttributionItem>
+  ): Promise<void> {
     return GlassfyModule.setAttributions(items);
   }
 
@@ -124,15 +147,18 @@ export class Glassfy {
     });
     GlassfyModule.subscribeOnPurchaseDelegate();
   }
-  
-  public static async _paywall(remoteConfig: String, preload: Boolean): Promise<void> {
+
+  public static async _paywall(
+    remoteConfig: String,
+    preload: Boolean
+  ): Promise<void> {
     await GlassfyModule._paywall(remoteConfig, preload);
   }
-  
+
   public static async _closePaywall(): Promise<void> {
     await GlassfyModule._closePaywall();
   }
-  
+
   public static async _openUrl(urlString: String): Promise<void> {
     await GlassfyModule._openUrl(urlString);
   }
