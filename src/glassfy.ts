@@ -27,13 +27,13 @@ const LINKING_ERROR =
 const GlassfyModule = NativeModules.GlassfyModule
   ? NativeModules.GlassfyModule
   : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
+    {},
+    {
+      get() {
+        throw new Error(LINKING_ERROR);
+      },
+    }
+  );
 
 export class Glassfy {
   public static async sdkVersion(): Promise<GlassfyVersion> {
@@ -44,7 +44,7 @@ export class Glassfy {
     apiKey: string,
     watcherMode: boolean
   ): Promise<void> {
-    const version = '1.5.1';
+    const version = '1.5.2';
     return GlassfyModule.initialize(apiKey, watcherMode, version);
   }
 
