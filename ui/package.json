@@ -1,0 +1,150 @@
+{
+  "name": "react-native-glassfy-module",
+  "version": "1.5.1",
+  "description": "glassfy module",
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "cpp",
+    "react-native-glassfy-module.podspec",
+    "!lib/typescript/example",
+    "!android/build",
+    "!ios/build",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
+  "scripts": {
+    "test": "jest",
+    "typescript": "tsc --noEmit",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "prepare": "bob build",
+    "release": "release-it",
+    "example_app": "yarn --cwd examples/example_app && yarn && pod-install examples/example_app --quiet",
+    "simple_example": "yarn --cwd examples/simple_example && yarn && pod-install examples/simple_example --quiet",
+    "bootstrap": "yarn example_app && yarn simple_example"
+  },
+  "keywords": [
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "repository": "https://github.com/glassfy/react-native-glassfy-module",
+  "author": "Marco Pifferi <support@glassfy.io> (https://github.com/glassfy)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/glassfy/react-native-glassfy-module/issues"
+  },
+  "homepage": "https://github.com/glassfy/react-native-glassfy-module#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^11.0.0",
+    "@react-native-community/eslint-config": "^3.2.0",
+    "@release-it/conventional-changelog": "^2.0.0",
+    "@types/jest": "^26.0.0",
+    "babel-jest": "^29.0.1",
+    "babel-loader": "^8.2.5",
+    "babel-preset-react-native": "^4.0.0",
+    "commitlint": "^11.0.0",
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "husky": "^6.0.0",
+    "jest": "^26.0.1",
+    "pod-install": "^0.1.0",
+    "prettier": "^2.0.5",
+    "react-native-builder-bob": "^0.18.0",
+    "release-it": "^14.2.2",
+    "typescript": "^4.8.4"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "jest": {
+    "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/examples/example_app/node_modules",
+      "<rootDir>/examples/simple_example/node_modules",
+      "<rootDir>/lib/"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular"
+      }
+    }
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@react-native-community",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "quoteProps": "consistent",
+          "singleQuote": true,
+          "tabWidth": 2,
+          "trailingComma": "es5",
+          "useTabs": false
+        }
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/"
+  ],
+  "prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  },
+  "dependencies": {
+    "@types/react-native": "^0.72.0"
+  }
+}
