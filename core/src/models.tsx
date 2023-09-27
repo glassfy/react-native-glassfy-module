@@ -187,10 +187,6 @@ export interface GlassfyAttributionItem {
 
 export type GlassfyExtraProperty = { [key: string]: string };
 
-export interface GlassfyPurchaseDelegate {
-  didPurchaseProduct(transaction: GlassfyTransaction): void;
-}
-
 export interface GlassfyVersion {
   readonly version: string;
 }

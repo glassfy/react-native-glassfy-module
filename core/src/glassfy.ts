@@ -1,4 +1,4 @@
-import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 import type {
   GLASSFY_ATTRIBUTION_TYPE,
   GLASSFY_LOGLEVEL,
@@ -7,7 +7,6 @@ import type {
   GlassfyExtraProperty,
   GlassfyOfferings,
   GlassfyPermissions,
-  GlassfyPurchaseDelegate,
   GlassfyPurchasesHistory,
   GlassfySku,
   GlassfySkuBase,
@@ -16,7 +15,6 @@ import type {
   GlassfyVersion,
 } from './models';
 
-const EVENT_DID_PURCHASE_PRODUCT = 'gy_did_purchase_product';
 
 const LINKING_ERROR =
   `The package 'react-native-glassfy-module' doesn't seem to be linked. Make sure: \n\n` +
@@ -137,15 +135,6 @@ export class Glassfy {
     items: Array<GlassfyAttributionItem>
   ): Promise<void> {
     return GlassfyModule.setAttributions(items);
-  }
-
-  public static setPurchaseDelegate(delegate: GlassfyPurchaseDelegate) {
-    const eventEmitter = new NativeEventEmitter(GlassfyModule);
-    eventEmitter.removeAllListeners(EVENT_DID_PURCHASE_PRODUCT);
-    eventEmitter.addListener(EVENT_DID_PURCHASE_PRODUCT, (transaction) => {
-      delegate.didPurchaseProduct(transaction);
-    });
-    GlassfyModule.subscribeOnPurchaseDelegate();
   }
 
 
