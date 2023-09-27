@@ -130,6 +130,5 @@ dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-android:0.71.4'
   implementation("io.glassfy:androidglue:1.5.2")
-  implementation("io.glassfy:paywall:1.5.2")
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
