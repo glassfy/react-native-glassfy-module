@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "react-native-glassfy-module": ["./src/index"]
+      "react-native-glassfyui-module": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

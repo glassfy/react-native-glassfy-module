@@ -7264,6 +7264,13 @@ react-native-builder-bob@^0.18.0:
   optionalDependencies:
     jetifier "^2.0.0"
 
+react-native-glassfy-module@1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/react-native-glassfy-module/-/react-native-glassfy-module-1.5.2.tgz#b9787f12a1959df6c4f5b58ecef600d05eb55a5b"
+  integrity sha512-fQiCfKWtodoYWqk2RsspWJgh84MW3j0lkpzrf4Hm+cvAJ6ABRKyObnUZcVWta3BbqsLhKEMNG6UEFP0zweh7xQ==
+  dependencies:
+    "@types/react-native" "^0.72.0"
+
 react-proxy@^1.1.7:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-1.1.8.tgz#9dbfd9d927528c3aa9f444e4558c37830ab8c26a"

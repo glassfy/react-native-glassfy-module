@@ -9,7 +9,7 @@ Is the client for Glassfy: a subscription revenue optimisation infrastructure fo
 ### Installation
 
 ```sh
-npm install react-native-glassfy-module
+npm install react-native-glassfyui-module
 ```
 
 ### More Info
