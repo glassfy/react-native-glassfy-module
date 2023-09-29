@@ -17,7 +17,7 @@ npm install react-native-glassfy-module
 npm install react-native-glassfyui-module
 ```
 
-- [Core SDK](https://github.com/glassfy/react-native-glassfy-module/ui/README.md)
+- [Paywall SDK](https://github.com/glassfy/react-native-glassfy-module/ui/README.md)
 
 ### More Info
 
