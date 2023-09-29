@@ -12,7 +12,7 @@ import kotlinx.coroutines.MainScope
 import org.json.JSONArray
 import org.json.JSONObject
 
-class GlassfyUIModuleModule(reactContext: ReactApplicationContext) :
+class GlassfyUIModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
 
   private var paywallFragment: DialogFragment? = null

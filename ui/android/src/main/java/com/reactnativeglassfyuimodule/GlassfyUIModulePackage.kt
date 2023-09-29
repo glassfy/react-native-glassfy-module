@@ -8,7 +8,7 @@ import com.facebook.react.uimanager.ViewManager
 
 class GlassfyUIModulePackage : ReactPackage {
     override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
-        return listOf(GlassfyUIModuleModule(reactContext))
+        return listOf(GlassfyUIModule(reactContext))
     }
 
     override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
