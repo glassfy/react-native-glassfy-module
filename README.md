@@ -8,7 +8,7 @@ Is the client for Glassfy: a subscription revenue optimisation infrastructure fo
 npm install react-native-glassfy-module
 ```
 
-- [Core SDK](https://github.com/glassfy/react-native-glassfy-module/core/README.md)
+- [Core SDK](https://github.com/glassfy/react-native-glassfy-module/blob/main/core/README.md)
 
 ### Glassfy with paywall support
 
@@ -17,7 +17,7 @@ npm install react-native-glassfy-module
 npm install react-native-glassfyui-module
 ```
 
-- [Paywall SDK](https://github.com/glassfy/react-native-glassfy-module/ui/README.md)
+- [Paywall SDK](https://github.com/glassfy/react-native-glassfy-module/blob/main/ui/README.md)
 
 ### More Info
 
