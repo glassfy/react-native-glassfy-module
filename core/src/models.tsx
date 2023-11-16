@@ -94,6 +94,7 @@ export interface GlassfyProduct {
   readonly introductoryPrice: GlassfyProductDiscount;
   readonly discounts: GlassfyProductDiscount[];
   readonly period: String;
+  readonly basePlanId: String;
 }
 
 export interface GlassfySkuBase {
@@ -106,6 +107,9 @@ export interface GlassfySku extends GlassfySkuBase {
   readonly promotionalEligibility: GLASSFY_ELEGGIBILITY;
   readonly extravars: { [key: string]: string };
   readonly product: GlassfyProduct;
+  readonly basePlanId: string;
+  readonly offerId: string;
+  readonly discount: GlassfyProductDiscount;
 }
 
 export interface GlassfySkuPaddle extends GlassfySkuBase {
@@ -120,6 +124,8 @@ export interface GlassfySkuPaddle extends GlassfySkuBase {
 export interface GlassfyAccountableSku extends GlassfySkuBase {
   readonly isInIntroOfferPeriod: boolean;
   readonly isInTrialPeriod: boolean;
+  readonly basePlanId: string;
+  readonly offerId: string;
 }
 
 export interface GlassfyOffering {
