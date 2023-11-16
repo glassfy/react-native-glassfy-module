@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/cocoapods/l/Glassfy.svg?style=flat)](https://glassfy.io)
 [![Npm](https://img.shields.io/npm/v/react-native-glassfy-module)](https://www.npmjs.com/package/react-native-glassfy-module)
 
-Is the client for Glassfy: a subscription revenue optimisation infrastructure for mobile applications.
+Is the client for Glassfy: a subscription revenue optimization infrastructure for mobile applications.
 
 ### Installation
 

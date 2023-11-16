@@ -15,7 +15,6 @@ import type {
   GlassfyVersion,
 } from './models';
 
-
 const LINKING_ERROR =
   `The package 'react-native-glassfy-module' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
@@ -42,7 +41,7 @@ export class Glassfy {
     apiKey: string,
     watcherMode: boolean
   ): Promise<void> {
-    const version = '1.5.3';
+    const version = '1.6.0';
     return GlassfyModule.initialize(apiKey, watcherMode, version);
   }
 
@@ -136,6 +135,4 @@ export class Glassfy {
   ): Promise<void> {
     return GlassfyModule.setAttributions(items);
   }
-
-
 }
