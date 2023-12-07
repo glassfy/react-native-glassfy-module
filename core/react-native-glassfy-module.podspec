@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
 
   s.dependency "React-Core"
   s.dependency "Glassfy", "1.4.0"
-  s.dependency "GlassfyGlue", "1.4.1"
+  s.dependency "GlassfyGlue", "1.4.5"
 end

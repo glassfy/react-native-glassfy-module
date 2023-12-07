@@ -186,6 +186,11 @@ class GlassfyModuleModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
+  fun storeInfo(promise: Promise) {
+    GlassfyGlue.storeInfo() { value, error -> pluginCompletion(promise, value, error) }
+  }
+
+  @ReactMethod
   fun setDeviceToken(promise: Promise) {
     promise.resolve(null)
   }

@@ -120,6 +120,14 @@ RCT_REMAP_METHOD(restorePurchases, restorePurchasesWithResolver
                                   withRejecter:reject]];
 }
 
+RCT_REMAP_METHOD(storeInfo, storeInfoWithResolver
+                 : (RCTPromiseResolveBlock)resolve withRejecter
+                 : (RCTPromiseRejectBlock)reject) {
+    [GlassfyGlue storeInfo:
+     [self responseFromGlassfyGluewithResolver:resolve
+                                  withRejecter:reject]];
+}
+
 RCT_REMAP_METHOD(setDeviceToken, setDeviceToken
                  : (NSString *)token withResolver
                  : (RCTPromiseResolveBlock)resolve withRejecter

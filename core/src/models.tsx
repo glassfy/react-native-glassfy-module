@@ -175,6 +175,25 @@ export interface GlassfyPermissions {
   readonly all: GlassfyPermission[];
 }
 
+export interface GlassfyPaddleStoreInfo {
+  readonly store: GLASSFY_STORE.Paddle;
+  readonly extravars: { [key: string]: string };
+  readonly userid: string;
+  readonly planId: string;
+  readonly subscriptionId: string;
+  readonly updateURL: string;
+  readonly cancelURL: string;
+}
+
+export interface GlassfyStoreInfo {
+  readonly store: Exclude<GLASSFY_STORE, GLASSFY_STORE.Paddle>;
+  readonly extravars: { [key: string]: string };
+}
+
+export interface GlassfyStoresInfo {
+  readonly all: (GlassfyStoreInfo | GlassfyPaddleStoreInfo)[];
+}
+
 export interface GlassfyTransaction {
   readonly productIdentifier: String;
   readonly receiptValidated: boolean;
